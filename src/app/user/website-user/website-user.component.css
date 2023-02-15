@@ -1,0 +1,8 @@
+select {
+    min-width: 150px;
+    border: 1px solid #000;
+    margin-left: 20px;
+}
+select:active, .select select:focus,.select select:hover{
+  border-color:#000;   
+}  

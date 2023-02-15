@@ -1,0 +1,205 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <div class="row topBanner">
+      <div class="col-md-9 col-xs-9">
+        <div class="sort_filter_wrap">
+          <div class="heading_divwr">
+            <div class="screen_heading">
+              <h3 class="hwswitch">CMS - Banner
+                <!-- <div class="checkboxdiv">
+                  <input id="check1" checked type="checkbox" name="switchRoundedSuccess"
+                    class="switch is-rounded is-success">
+                  <label for="check1"></label>
+                </div> -->
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-xs-3">
+        <div class="sort_filter_wrap">
+          <button (click)="bannerBtn()" class="btn-primary">{{bannerFlag?'Top Banner':'Exhibition Banner'}}</button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-9">
+        <form [formGroup]="bannerGrp" (ngSubmit)="submit()">
+          <div class="input_form_wrap">
+            <div class="file is-boxed">
+              <label class="file-label">
+                <input class="file-input" (change)="fileUpload($event, 'image')" type="file" name="resume"
+                  accept="image/*">
+                <span class="file-cta">
+                  <span class="file-icon">
+                    <i class="fa fa-upload"></i>
+                  </span>
+                  <span class="file-label">
+                    Banner Image
+                  </span>
+                </span>
+              </label>
+              <figure *ngIf="previewObj['image']" class="image is-128x128">
+                <img src="{{previewObj['image']}}">
+              </figure>
+            </div>
+            <div class="field">
+              <label class="label">Banner Type</label>
+              <div class="control">
+                <div class="select">
+                  <select [attr.disabled]="editFlag ? '' : null" formControlName="type">
+                    <option value=''>Select Banner Type</option>
+                    <option value="Banner">Top Banner</option>
+                    <option value="Exhibition">Exhibition Banner</option>
+                  </select>
+                </div>
+              </div>
+              <div *ngIf="f.type.errors && f.type.touched" class="invalid">
+                <div *ngIf="f.type.errors.required">
+                  <p style="color: red;">Required</p>
+                </div>
+                <div *ngIf="f.type.errors.pattern">
+                  <p style="color: red;">Not a valid type</p>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Add Title</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="title" formControlName="title">
+              </div>
+              <div *ngIf="f.title.errors && f.title.touched" class="invalid">
+                <div *ngIf="f.title.errors.required">
+                  <p style="color: red;">Required</p>
+                </div>
+                <div *ngIf="f.title.errors.pattern">
+                  <p style="color: red;">Not a valid title</p>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Add Link</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="link" formControlName="name">
+              </div>
+              <div *ngIf="f.name.errors && f.name.touched" class="invalid">
+                <div *ngIf="f.name.errors.required">
+                  <p style="color: red;">Required</p>
+                </div>
+                <div *ngIf="f.name.errors.pattern">
+                  <p style="color: red;">Not a valid link</p>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Add Description</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="description" formControlName="description">
+              </div>
+              <div *ngIf="f.description.errors && f.description.touched" class="invalid">
+                <div *ngIf="f.description.errors.required">
+                  <p style="color: red;">Required</p>
+                </div>
+                <!-- <div *ngIf="f.description.errors.pattern">
+                  <p style="color: red;">Not a valid title</p>
+                </div> -->
+              </div>
+            </div>
+            <div class="field is-grouped">
+              <div class="control">
+                <button type="submit" class="button is-link">Submit</button>
+              </div>
+              <div class="control cancell" *ngIf="editFlag">
+                <button type="submit" class="button is-link" (click)="cancelEdit()">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-3">
+        <cms-sidebar [activeState]="'banner'"></cms-sidebar>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <label class="customlabel">{{bannerFlag ? 'Banner' : 'Exhibition'}} List</label>
+      </div>
+      <div class="col-md-12">
+        <div class="table-responsive ">
+          <table class="table" *ngIf="bannerFlag">
+            <tbody cdkDropList (cdkDropListDropped)="drop($event)">
+              <tr *ngFor="let item of list; let i=index" cdkDrag>
+                <td width="120" *cdkDragPlaceholder>
+                  <figure class="tdimg">
+                    <img [src]="item?.link" onError="this.src='assets/images/def.png';" alt="">
+                  </figure>
+                </td>
+                <td>
+                  <figure class="tdimg">
+                    <img class="styleCursor" (click)="showImage(item.link)" [src]="item?.link" onError="this.src='assets/images/def.png';" alt="">
+                  </figure>
+                </td>
+                <td>{{item?.title}}</td>
+                <!-- <td>{{item?.name}}</td> -->
+                <td title="{{item.description ? item.description : '-'}}">
+                  {{(item.description && item.description.length > 50) ? item.description.substr(0, 50) + '&hellip;' : item.description}}
+                </td>
+                <td>{{item?.created_at |date}}</td>
+                <td class="text-right">
+                  <a class="pointer"> <i (click)="edit(item)" class="fa fa-pencil" aria-hidden="true"></i></a>
+                  &nbsp;
+                  <a class="pointer"> <i (click)="deleteItem(item)" style="color: red;" class="fa fa-trash"
+                      aria-hidden="true"></i></a>
+                  <div class="checkboxdiv">
+                    <input id="{{'switchRoundedSuccess'+item?.id}}" type="checkbox" name="switchRoundedSuccess" (change)="changeStatus(i,$event.target.checked, item.id)"
+                      class="switch is-rounded is-success" [checked]="item?.isActive">
+                    <label for="{{'switchRoundedSuccess'+item?.id}}"></label>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table class="table" *ngIf="!bannerFlag">
+            <tbody>
+              <tr *ngFor="let item of list2; let i=index">
+                <!-- <td width="120" *cdkDragPlaceholder>
+                  <figure class="tdimg">
+                    <img [src]="item?.link" onError="this.src='assets/images/def.png';" alt="">
+                  </figure>
+                </td> -->
+                <td>
+                  <figure class="tdimg">
+                    <img (click)="showImage(item.link)" class="styleCursor" [src]="item?.link" onError="this.src='assets/images/def.png';" alt="">
+                  </figure>
+                </td>
+                <td>{{item?.title}}</td>
+                <!-- <td>{{item?.name}}</td> -->
+                <td title="{{item.description}}">
+                  {{(item.description.length > 50) ? item.description.substr(0, 50) + '&hellip;' : item.description}}
+                </td>
+                <td>{{item.created_at ? (item.created_at | date) : '-'}}</td>
+                <!-- <td>{{item?.totalUser}}</td> -->
+                <td>{{item?.totalUser}}<a style="margin-left: 10px"> <i [routerLink]="['../exhibitionUserList']" [queryParams]="{id:item?.id}"
+                  class="fa fa-eye"></i></a></td>
+                <td class="text-right">
+                  <a class="pointer"> <i (click)="edit(item)" class="fa fa-pencil" aria-hidden="true"></i></a>
+                  &nbsp;
+                  <a class="pointer"> <i (click)="deleteItem(item)" style="color: red;" class="fa fa-trash"
+                      aria-hidden="true"></i></a>
+                  <div class="checkboxdiv">
+                    <input id="{{'switchRoundedSuccess'+item?.id}}" type="checkbox" name="switchRoundedSuccess" (change)="changeStatus(i,$event.target.checked, item.id)"
+                      class="switch is-rounded is-success" [checked]="item?.isActive">
+                    <label for="{{'switchRoundedSuccess'+item?.id}}"></label>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

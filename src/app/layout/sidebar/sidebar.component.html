@@ -1,0 +1,99 @@
+<aside id="left-panel" class="left-panel">
+  <nav class="navbar navbar-expand-sm navbar-default">
+    <div id="main-menu" class="main-menu collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <!-- 1  Artisan                     1    2020-09-15 15:53:03
+     2  Enquiries                   1    2020-09-15 15:53:03
+     3  Generated Enquiries         1    2020-09-15 15:53:03
+     4  Orders                      1    2020-09-15 15:53:03
+     5  Products                    1    2020-09-15 15:53:03
+     6  App CMS                     1    2020-09-15 15:53:03
+     7  Website CMS                 1    2020-09-15 15:53:03
+     8  Manage Listing              1    2020-09-15 15:53:03
+     9  Sub Admin    -->
+        <li routerLinkActive="active" class="side-menu dropdown">
+          <a [routerLink]="'/dashboard'"> <i class="fa fa-tachometer" aria-hidden="true"></i>
+            Dashboard</a>
+        </li>
+        <!-- "artisan", "products", "newsfeed", "onboarding" -->
+        <li routerLinkActive="active" class="side-menu dropdown" *ngIf="allow('Artisan')>-1">
+          <a [routerLink]="'/artisan'"> <i class="fa fa-male" aria-hidden="true"></i>
+            Artisans</a>
+        </li>
+        <li routerLinkActive="active" class="side-menu dropdown" id="enquiries" *ngIf="allow('Enquiries')>-1">
+          <a [routerLink]="'/enquiries'"><i class="fa fa-question" aria-hidden="true"></i>
+            Enquiries</a>
+        </li>
+        <li routerLinkActive="active" class="side-menu dropdown"  *ngIf="allow('Generated Enquiries')>-1">
+          <a [routerLink]="'/generated-enquiry'"> <i class="fa fa-question-circle-o" aria-hidden="true"></i>
+            Generated Enquiries</a>
+        </li>
+        <li routerLinkActive="active" class="side-menu dropdown" *ngIf="allow('Orders')>-1">
+          <a [routerLink]="'/orders'"> <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+            Orders
+          </a>
+        </li>
+        <li routerLinkActive="active" class="side-menu dropdown" *ngIf="allow('Products')>-1">
+          <a [routerLink]="'/products'"><i class="fa fa-product-hunt" aria-hidden="true"></i>
+            Products</a>
+        </li>
+
+
+        <li class="dropdown side-menu openmenunow" *ngIf="allow('App CMS')>-1">
+          <a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-mobile" aria-hidden="true"></i> App CMS
+            <i aria-hidden="true" class="fa fa-angle-down"></i></a>
+          <ul class="dropdown-menu">
+            <li><a routerLinkActive="active" [routerLink]="'/newsfeed/appFeedsList'">App Newsfeed</a></li>
+            <li><a routerLinkActive="active" [routerLink]="'/shop'">Shop</a></li>
+            <li><a routerLinkActive="active" [routerLink]="'/ideal'">Ideal Shop</a></li>
+            <li><a routerLinkActive="active" [routerLink]="'/notification'">Notification</a></li>
+            <li><a routerLinkActive="active" [routerLink]="'/awards'">Awards</a></li>
+            <li><a routerLinkActive="active" [routerLink]="'/gallery'">Gallery</a></li>
+            <li><a routerLinkActive="active" [routerLink]="'/onboarding/app-onboarding-list'">App onBoarding</a></li>
+            <li><a routerLinkActive="active" [routerLink]="'/app-setting'">App Support</a></li>
+          </ul>
+        </li>
+        <li class="dropdown side-menu openmenunow"  *ngIf="allow('Website CMS')>-1">
+          <a class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-desktop" aria-hidden="true"></i> Website
+            CMS
+            <i aria-hidden="true" class="fa fa-angle-down"></i></a>
+          <ul class="dropdown-menu">
+            <li routerLinkActive="active"><a [routerLink]="'/managecategory'">Manage Category</a></li>
+            <li><a [routerLink]="'/onboarding'"> Web OnBoarding</a></li>
+            <li><a [routerLink]="'/user'">Website users</a></li>
+            <li><a [routerLink]="'/cms'">CMS section</a></li>
+            <li><a [routerLink]="'/avenue'">Avenue</a></li>
+            <li><a [routerLink]="[ '/websiteOrders']">Website orders</a></li>
+            <li><a [routerLink]="'/newsfeed'">Web Newsfeed</a></li>
+          </ul>
+        </li>
+
+        <li routerLinkActive="active" class="side-menu dropdown" *ngIf="allow('Manage Listing')>-1">
+          <a [routerLink]="'/options'"> <i class="fa fa-list" aria-hidden="true"></i> Manage Listing</a>
+        </li>
+        <li routerLinkActive="active" class="side-menu dropdown" *ngIf="allow('Sub Admin')>-1">
+          <a [routerLink]="'/subadmin'"> <i class="fa fa-users" aria-hidden="true"></i> Sub Admin</a>
+        </li>
+
+        <!-- <li  routerLinkActive="active" class="side-menu dropdown" *ngIf="allow('Sub Admin')>-1">
+          <a [routerLink]="'/app-setting'"> <i class="fa fa-cogs" aria-hidden="true"></i> App setting</a>
+        </li> -->
+
+        <li class="dropdown side-menu openmenunow" >
+          <a class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-user" aria-hidden="true"></i> My
+            Profile
+            <i aria-hidden="true" class="fa fa-angle-down"></i></a>
+          <ul class="dropdown-menu">
+            <li routerLinkActive="active"><a [routerLink]="'/my-profile/profile'">Profile</a></li>
+            <li><a [routerLink]="'/my-profile/business'">Business Details</a></li>
+            <li><a [routerLink]="'/my-profile/password'">Password</a></li>
+          </ul>
+        </li>
+
+        <!-- <li class=" side-menu dropdown" (click)="logout()">
+          <a> <img src="assets/images/logout.png">Logout</a>
+        </li> -->
+      </ul>
+    </div>
+  </nav>
+</aside>

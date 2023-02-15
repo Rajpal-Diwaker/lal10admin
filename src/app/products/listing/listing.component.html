@@ -1,0 +1,239 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <div class="animated fadeIn">
+      <div class="product_filter_wrap">
+        <div class="row productheaderwr">
+          <div class="col-md-3 col-sm-6 col-xs-12 brrt">
+            <div class="prhrinr">
+              <label>Uploaded By :</label>
+              <div class="common_input_warp">
+                <select class="form-control" >
+                  <option>Uploaded by:</option>
+                  <option value='1'>Admin</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6 col-xs-12 brrt">
+            <div class="prhrinr">
+              <label>Price Range :</label>
+              <ngx-slider [(value)]="value" [options]="options" (userChangeEnd)="dataChanged($event.value, 'price')">
+              </ngx-slider>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6 col-xs-12 brrt">
+            <div class="prhrinr ">
+              <div class="custom_radio company_country">
+                <input type="radio" value='1' [(ngModel)]="liveFilter" (ngModelChange)="dataChanged($event, 'live')"
+                  name="liveFilter" id="featured-1"><label for="featured-1">Live
+                  Products</label>
+                <input type="radio" value='0' [(ngModel)]="liveFilter" (ngModelChange)="dataChanged($event, 'live')"
+                  name="liveFilter" id="featured-2"><label for="featured-2">Non-Live Products</label>
+              </div>
+              <div id="company_country-error"></div>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="button_download_wrap prhrinr">
+              <!-- <input class="form-control" placeholder="Search" (keyup)="search($event)"> -->
+              <a  class="btns_style" (click)="reset()">Reset Filter</a>
+              <!-- <div class="sde-btn">
+                <a [routerLink]="'/products/add'">Add Product</a>
+              </div>
+              <div class="sde-btn">
+                <a [routerLink]="'/products/group'">Manage Group</a>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sort_filter_wrap">
+        <div class="heading_divwr">
+          <h3>Products</h3>
+          <div class="btnflex">
+            <div class="input_wrap_search">
+              <input class="form-control" placeholder="Search" [(ngModel)]="searchKeyWord" (keyup)="search($event.target.value)">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </div>
+            <a [routerLink]="'/products/add'" class="whitebtns_style"><i aria-hidden="true"
+                class="fa fa-plus-circle"></i> Add
+              Product
+            </a>
+            <a [routerLink]="'/products/group'" class="whitebtns_style">Manage Group</a>
+            <button type="button" (click)="downloadSample()" class="whitebtns_style">Download Sample</button>
+            <button type="button" (click)="download()" class="whitebtns_style">Export Data</button>
+            <input type="file" style="display: none;" id="import" accept=".csv" (change)="import($event)"
+              class="btn btn-block">
+            <label for="import" class="pointer whitebtns_style"><i class="fa fa-download" aria-hidden="true"></i> Import
+              Product</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <div class="main-wrapper">
+            <div class="user_detail">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th *ngFor="let item of listHeaders">
+                        <div class="sortorderwr">
+                          <abbr title="{{item}}">{{item}}</abbr>
+                          <div *ngIf="item==='Artisans Name'|| item==='Amount'||item==='QTY'||item==='No. of orders' ">
+                            <span (click)="sort('asc',item)" class="sortorder"> <img src="assets/images/sort_a.png"  alt=""></span>
+                            <span (click)="sort('desc',item)" class="sortorder"> <img src="assets/images/sort_z.png"  alt=""></span>
+                          </div>
+                        </div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr tabindex="0" [ngClass]="{'back': item.id==focusID}" (click)="focusID=0"
+                      *ngFor="let item of listArr | paginate: { itemsPerPage: 10, currentPage: page,totalItems:total }; let i=index">
+                      <td width="120" [ngClass]="{'productavail': item?.plive}">
+                        <figure class="tdimg user_img">
+                          <div class="myzoom">
+                            <img (error)="def($event, item?.id)" src="{{item?.image?.length>0?item?.image[0]?.image:''}}">
+                          </div>
+                        </figure>
+                      </td>
+                      <td *ngIf="item?.publish=='1'; else elsePart" style="cursor: pointer;" (click)="openProductOnWeb(item.id)" title="Open product on website">
+                        {{item?.name | titlecase}}
+                        <span class="externalLink"  id="k{{item.id}}">
+                          <i class="fa fa-external-link" aria-hidden="true"></i>
+                        </span>
+                      </td>
+                      <ng-template #elsePart>
+                        <td (dblclick)="edit(item?.id)">
+                          {{item?.name | titlecase}}
+                        </td>
+                      </ng-template>
+                      <td (dblclick)="edit(item?.id)">{{item?.artisanName ||'---'}}</td>
+                      <td (dblclick)="edit(item?.id)">{{item?.amount}}</td>
+                      <td (dblclick)="edit(item?.id)">{{item?.inventoryQty}}</td>
+                      <td (dblclick)="edit(item?.id)">{{item?.doableQty||'0'}}</td>
+                      <td (dblclick)="edit(item?.id)">{{item?.totalEnquiry||'0'}}</td>
+                      <td (dblclick)="edit(item?.id)">{{item?.material }}</td>
+                      <td (dblclick)="edit(item?.id)">{{item?.noOfOrder||'0'}}</td>
+                      <td (dblclick)="edit(item?.id)">{{item?.roleName }}</td>
+                      <td width="110"><i (click)="edit(item?.id)" class="pointer fa fa-pencil" aria-hidden="true"></i>
+                        &nbsp;
+                        <a class="pointer"> <i style="color: red;" class="fa fa-trash" (click)="delete(item.id)"
+                            aria-hidden="true"></i></a>
+                        <input class="container" id="{{'switchRoundedSuccess'+item?.id}}"
+                          (change)="changeStatus($event.target.checked, item?.id)" type="checkbox"
+                          [checked]='item?.isActive'>
+                      </td>
+                      <td>
+                        <div class="field publishtoggle">
+                          <input id="{{'publish'+i}}" (change)="switchchange($event,item?.id,i)" type="checkbox"
+                            name="publish" class="switch is-rounded is-success" [checked]="item?.publish=='1'">
+                          <label for="{{'publish'+i}}"></label>
+                        </div>
+                      </td>
+                      <td (dblclick)="edit(item?.id)">
+                        {{item?.categoryName||'--'}}/{{item?.subcategoryName||'--'}}
+                      </td>
+                      <td>
+                        <input class="container" id="{{'addingBestselling'+item?.id}}"
+                          (change)="addintoBestSelling($event.target.checked, item?.id,item?.addingBestsellingComment)"
+                          type="checkbox" [checked]="item?.addingBestselling=='1'">
+                      </td>
+                      <td><p class="productdescription" style="cursor: pointer;" (click)="editDescription(item?.id,item?.description)"
+                        [innerHTML]="item?.description || '---'"></p></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <pagination-controls class="custompaginations" (pageChange)="changePage($event)"></pagination-controls>
+              <notfound *ngIf="listArr?.length == 0"></notfound>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+<!--modal -->
+
+
+<div id="swtichmodal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content" [formGroup]='myForm'>
+      <div class="modal-header">
+        <button type="button" class="close" (click)="!editDescriptionFlag ? closePopup() : null" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">{{editDescriptionFlag ? 'Descripton' : 'Publish on web'}}</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <!-- <div class="col-md-6">
+            <div class="form-group">
+              <select class="form-control" (change)=getCatId($event.target.value) formControlName="categoryId">
+                <option value=''>Select category</option>
+                <option *ngFor="let item of categoryList" value='{{item.id}}'>{{item.title}}</option>
+              </select>
+            </div>
+            <div *ngIf="f.categoryId.errors && f.categoryId.touched" class="invalid">
+              <div *ngIf="f.categoryId.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div> -->
+          <!-- <div class="col-md-6">
+            <div class="form-group">
+              <select class="form-control" formControlName="subcategoryId">
+                <option value="">Select Sub Category</option>
+                <option *ngFor="let item of getSubcategory" value='{{item.id}}'>{{item.title}}</option>
+              </select>
+            </div>
+            <div *ngIf="f.subcategoryId.errors && f.subcategoryId.touched" class="invalid">
+              <div *ngIf="f.subcategoryId.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div> -->
+          <div class="col-md-12">
+            <div class="form-group" *ngIf="!editDescriptionFlag">
+              <textarea id="word_count" placeholder="Comment for best selling product"
+                (keyup)=wordCount($event.target.value) formControlName="addingBestsellingComment" class="form-control"
+                cols="30" rows="10"></textarea>
+              Total word Count : <span id="display_count">0</span>/200 words.
+            </div>
+            <div class="form-group" *ngIf="editDescriptionFlag">
+              <!-- <textarea placeholder="Add description"
+                 formControlName="description" class="form-control"
+                cols="30" rows="10"></textarea> -->
+                <quill-editor [style]="editorStyle" [modules]="modules" formControlName="description"></quill-editor>
+              <!-- Total word Count : <span id="display_count">0</span>/200 words. -->
+            </div>
+          </div>
+          <div *ngIf="!editDescriptionFlag && f.addingBestsellingComment.errors && f.addingBestsellingComment.touched" class="invalid">
+            <div *ngIf="f.addingBestsellingComment.errors.required">
+              <p style="color: red;">Required</p>
+            </div>
+          </div>
+          <div *ngIf="editDescriptionFlag && f.description.errors && f.description.touched" class="invalid">
+            <div *ngIf="f.description.errors.required">
+              <p style="color: red;">Required</p>
+            </div>
+          </div>
+          <div class="invalid" *ngIf="!editDescriptionFlag && finalCount>200">
+            <div>
+              <p style="color: red;">Exceed word limit</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="editDescriptionFlag ? submitEditDescription(myForm.value) : submit(myForm.value)" class="whitebtns_style">{{editDescriptionFlag ? 'EDIT' : 'ADD'}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--modal-->

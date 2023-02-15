@@ -1,0 +1,198 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <div class="sort_filter_wrap">
+      <div class="heading_divwr">
+        <h3>Group details</h3>
+        <div class="btnflex">
+        </div>
+      </div>
+    </div>
+    <form [formGroup]="myform" (ngSubmit)="submit(myform.value)">
+      <div class="row input_form_wrap">
+        <div class="field col-sm-6">
+          <label class="label">Sub-Admin name </label>
+          <div class="control">
+            <input class="input" alphaonly type="text" maxlength="40" placeholder="Name" formControlName="name">
+            <div *ngIf="f.name.errors && f.name.touched" class="invalid">
+              <div *ngIf="f.name.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Group name </label>
+          <div class="control">
+            <input class="input" alphaonly type="text" maxlength="40" placeholder="groupName" formControlName="groupName">
+            <div *ngIf="f.groupName.errors && f.groupName.touched" class="invalid">
+              <div *ngIf="f.groupName.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Mobile Number </label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input " numberonly type="text" placeholder="Mobile Number" formControlName="mobile">
+            <div *ngIf="f.mobile.errors && f.mobile.touched" class="invalid">
+              <div *ngIf="f.mobile.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+              <div *ngIf="f.mobile.errors.minlength">
+                <p style="color: red;">Minimum length is {{f.mobile.errors.minlength.requiredLength}}</p>
+              </div>
+              <div *ngIf="f.mobile.errors.maxlength">
+                <p style="color: red;">Maximum length is {{f.mobile.errors.maxlength.requiredLength}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Artisan Group</label>
+          <div class="control has-icons-left has-icons-right">
+            <ng-multiselect-dropdown [placeholder]="'Select group'" [data]="artisanGroup" [settings]="groupSetting"
+              formControlName='groupId' (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)">
+            </ng-multiselect-dropdown>
+            <div *ngIf="f.groupId.errors && f.groupId.touched" class="invalid">
+              <div *ngIf="f.groupId.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Email ID </label>
+          <div class="control">
+            <input class="input"  type="email"  placeholder="email"
+              formControlName="email">
+              <div *ngIf="f.email.errors && f.email.touched" class="invalid">
+                <div *ngIf="f.email.errors.required">
+                  <p style="color: red;">Email is required</p>
+                </div>
+                <div *ngIf="f.email.errors.email">
+                  <p style="color: red;">Invalid email</p>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="field col-sm-6" hidden>
+          <label class="label">Total Artisans</label>
+          <div class="control">
+            <input class="input is-success" type="text" placeholder="Total Artisans" formControlName="totalArtisan">
+          </div>
+          <div *ngIf="f.totalArtisan.errors && f.totalArtisan.touched" class="invalid">
+            <div *ngIf="f.totalArtisan.errors.required">
+              <p style="color: red;">Required</p>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Add role</label>
+          <div class="control">
+            <div class="select">
+              <!-- <select formControlName="state">
+                <option value=''>Select Role</option>
+                <option *ngFor="let item of role" [value]="item.id">{{item.title}}</option>
+              </select> -->
+              <ng-multiselect-dropdown [placeholder]="'Select Role'" [data]="role" formControlName='subAdminRoleId'
+                [settings]="roleSetting">
+              </ng-multiselect-dropdown>
+            </div>
+          </div>
+          <div *ngIf="f.subAdminRoleId.errors && f.subAdminRoleId.touched" class="invalid">
+            <div *ngIf="f.subAdminRoleId.errors.required">
+              <p style="color: red;">Required</p>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="field col-sm-6">
+          <label class="label">Group Filter</label>
+          <div class="control">
+            <div class="select">
+              <select formControlName="groupFilter">
+                <option value=''>Select Group Filter</option>
+              </select>
+            </div>
+          </div>
+          <div *ngIf="f.groupFilter.errors && f.groupFilter.touched" class="invalid">
+            <div *ngIf="f.groupFilter.errors.required">
+              <p style="color: red;">Required</p>
+            </div>
+          </div>
+        </div> -->
+        <div class="field is-grouped col-sm-12">
+          <div class="control">
+            <button type="submit" class="button is-link">Submit</button>
+          </div>
+          <div class="control">
+            <button class="button is-link is-light" [routerLink]="'/subadmin'">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="animated fadeIn">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <div class="main-wrapper">
+            <div class="user_detail">
+              <div class="table-responsive ">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th *ngFor="let item of listHeaders; let i=index">
+                        <div class="sortorderwr">
+                          <abbr title="{{item}}">{{item}}</abbr>
+                        </div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let item of listArr | paginate: { itemsPerPage: 10, currentPage: page,totalItems:total }; let i=index">
+                      <td width="120">
+                        <!-- <mat-checkbox checked #checkbox (change)='check(checkbox.checked)' class="example-margin"></mat-checkbox> -->
+                        <input type="checkbox" (change)=check(item,$event.target.checked)  [checked]="item?.isChecked">
+                        <figure class="tdimg">
+                          <img (error)="def($event, item.id)" src="{{item.artisanImage}}">
+                        </figure>
+                      </td>
+                      <td>
+                        {{item.name | titlecase}}
+                      </td>
+                      <td>{{item.mobile}}</td>
+                      <td>{{(item.stateName | titlecase) || '--'}}</td>
+                      <td>{{item?.totalEnq}}</td>
+                      <td>{{item?.totalOrders}}</td>
+                      <!-- <td><a class="pointer"> <i class="fa fa-pencil" (click)="edit(item.id)" aria-hidden="true"></i>
+                        </a>
+                        &nbsp;
+                        <a class="pointer"> <i style="color: red;" class="fa fa-trash" (click)="delete(item.userId)"
+                            aria-hidden="true"></i></a>
+                      </td> -->
+                      <!-- <td>
+                        <div class="field">
+                          <input id="{{'switchRoundedSuccess'+i}}" type="checkbox"
+                            (change)="changeStatus(i,$event.target.checked, item.userId)" name="switchRoundedSuccess"
+                            class="switch is-rounded is-success" [checked]="item.isActive">
+                          <label for="{{'switchRoundedSuccess'+i}}"></label>
+                        </div>
+                      </td> -->
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <pagination-controls class="custompaginations" (pageChange)="changePage($event)"></pagination-controls>
+              <notfound *ngIf="listArr?.length==0"></notfound>
+              <!-- <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+                (scrolled)="onScroll()"></div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

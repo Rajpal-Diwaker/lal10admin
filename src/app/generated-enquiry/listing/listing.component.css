@@ -1,0 +1,17 @@
+.tablebtnt  button{
+  margin:2px;
+}
+
+.table tbody tr:hover {
+  background-color: #add8e62e;
+}
+
+.table tbody tr:focus {
+  background-color: #add8e687;
+  outline: 0;
+}
+
+.back {
+  background-color: #add8e687;
+  outline: 2px dotted black
+}

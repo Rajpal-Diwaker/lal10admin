@@ -1,0 +1,46 @@
+/* File Uploader CSS Start Here  */
+#pic {
+    display: none;
+}
+.newbtn {
+    cursor: pointer;
+    position: relative;
+    display: block;
+    max-width: 150px;
+    height: 150px;
+    margin-top: 0px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+}
+#blah {
+    position: relative;
+    width:100%;
+    height:100%;
+    object-fit: cover;
+}
+.project_photo{
+    display: inline-block;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+.addmore_btn .whitebtns_style{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.enquary_heading_title {
+    display: flex;
+    justify-content: space-between;
+}
+.enquary_heading_title span{
+  color:#000;
+  font-weight: bold;
+}
+.mrtp{
+    margin-top:30px;
+}
+::ng-deep .ng-select.ng-select-single .ng-select-container {
+  width: 100% !important;
+  /* margin: 0px 10px 0px 10px; */
+  height: 50px;
+  border: 1px solid black;
+}

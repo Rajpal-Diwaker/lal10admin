@@ -1,0 +1,66 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="sde-btn">
+
+  </div>
+  <div class="content">
+      <div class="sort_filter_wrap">
+          <div class="heading_divwr">
+            <div class="screen_heading">
+              <h3>Manage Group</h3>
+            </div>
+            <div>
+              <div class="btnflex">
+                <a class="whitebtns_style" [routerLink]="'/products/add-group'">Create Group</a>
+              </div>
+            </div>
+          </div>
+        </div>
+    <div class="animated fadeIn">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <div class="main-wrapper">
+            <div class="user_detail">
+              <div class="table-responsive ">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th *ngFor="let item of listHeaders">
+                        <abbr title="{{item}}">{{item}}</abbr>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of listArr | paginate: { itemsPerPage: 10, currentPage: page,totalItems:total }; let i = index">
+                      <th>{{item?.group_name}}</th>
+                      <td>{{item.total_product|stringLength}}</td>
+                      <td>{{item.created_at|date:'longDate':'UTC'}}</td>
+                      <td><a class="pointer"> <i class="fa fa-pencil" (click)="edit(item)" aria-hidden="true"></i>
+                        </a>
+                        &nbsp;
+                        <a class="pointer"> <i style="color: red;" class="fa fa-trash" (click)="delete(item.id)"
+                            aria-hidden="true"></i></a>
+                      </td>
+                      <td>
+                        <div class="field">
+                          <input id="{{'switchRoundedSuccess'+i}}" type="checkbox"
+                            (change)="changeStatus(i,$event.target.checked, item.id)" name="switchRoundedSuccess"
+                            class="switch is-rounded is-success" [checked]="item.isActive">
+                          <label for="{{'switchRoundedSuccess'+i}}"></label>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <pagination-controls class="custompaginations" (pageChange)="changePage($event)"></pagination-controls>
+              <notfound *ngIf="listArr?.length == 0"></notfound>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

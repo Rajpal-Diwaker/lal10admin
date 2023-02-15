@@ -1,0 +1,177 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+
+    <div class="sort_filter_wrap">
+      <div class="heading_divwr">
+        <h3>Artisan</h3>
+        <div class="btnflex">
+          <div class="input_wrap_search input_wrap_search_responsive">
+            <i class="fa fa-search" aria-hidden="true"></i>
+            <input class="form-control" placeholder="Search" [(ngModel)]="searchKeyWord" (keyup)="search()">
+          </div>
+          <button type="button" (click)="downloadSample()" class="whitebtns_style"><i class="fa fa-download"
+              aria-hidden="true"></i> Download Sample</button>
+          <button type="button" (click)="download()" class="whitebtns_style"><i class="fa fa-download"
+              aria-hidden="true"></i> Download</button>
+          <input type="file" accept=".csv" style="display: none;" id="import" (change)="import($event)">
+          <label for="import" class="whitebtns_style"><i class="fa fa-download" aria-hidden="true"></i> Import
+            Artisan</label>
+
+          <a [routerLink]="'/artisan/add'" class="whitebtns_style"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+            Add Artisan
+          </a>
+          <a [routerLink]="'/artisan/groupList'" class="whitebtns_style"><i class="fa fa-users" aria-hidden="true"></i>
+            Manage Group</a>
+          <!-- <div class="select">
+            <select>
+              <option>Filter By</option>
+              <option>Option:1</option>
+              <option>Option:2</option>
+              <option>Option:3</option>
+            </select>
+          </div> -->
+        </div>
+      </div>
+    </div>
+    <div class="sort_filter_wrap">
+      <div class="heading_divwr">
+        <div class="screen_heading">
+          <!-- <h3>Create a new groups</h3> -->
+        </div>
+        <div class="responsive_select_artisan">
+          <div class="btnflex">
+            <!-- <div class="select"> -->
+              <!-- <select (change)="filter($event.target.value,'state'); getCraft($event.target.value)">
+                <option value="">Select State</option>
+                <option *ngFor="let item of stateList" [value]='item?.id'>{{item?.name}}</option>
+              </select> -->
+              <ng-select [(ngModel)]="sel1"
+                [items]="stateList"
+                [placeholder]="'Select State'"
+                [clearable]="false"
+                bindLabel="name"
+                bindValue="id"
+                (change)="filter($event.id,'state'); getCraft($event.id)">
+              </ng-select>
+            <!-- </div> -->
+            <!-- <div >
+              <select (change)="filter($event.target.value,'craft'); getMaterial($event.target.value)">
+                <option value="">Select Craft</option>
+                <option *ngFor="let item of CraftList" [value]='item?.id'>{{item?.name}}</option>
+              </select>
+            </div> -->
+            <ng-select [(ngModel)]="sel2"
+                [items]="CraftList"
+                [placeholder]="'Select Craft'"
+                [clearable]="false"
+                bindLabel="name"
+                bindValue="id"
+                (change)="filter($event.id,'craft'); getMaterial($event.id)">
+              </ng-select>
+
+            <!-- <div class="select">
+              <select (change)="filter($event.target.value,'material'); getProducts($event.target.value)">
+                <option value="">Select Material</option>
+                <option *ngFor="let item of materialList" [value]='item?.id'>{{item?.name}}</option>
+              </select>
+            </div> -->
+            <ng-select [(ngModel)]="sel3"
+                [items]="materialList"
+                [placeholder]="'Select Material'"
+                [clearable]="false"
+                bindLabel="name"
+                bindValue="id"
+                (change)="filter($event.id,'material'); getProducts($event.id)">
+              </ng-select>
+
+            <!-- <div class="select">
+              <select (change)="filter($event.target.value,'product')">
+                <option value="">Select Product</option>
+                <option *ngFor="let item of productList" [value]='item?.id'>{{item?.name}}</option>
+              </select>
+            </div> -->
+            <ng-select [(ngModel)]="sel4"
+                [items]="productList"
+                [placeholder]="'Select Product'"
+                [clearable]="false"
+                bindLabel="name"
+                bindValue="id"
+                (change)="filter($event.id,'product')">
+              </ng-select>
+
+            <a (click)="reset(); sel1=undefined; sel2=undefined; sel3=undefined; sel4=undefined" class="btns_style"> Reset Filter</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="animated fadeIn">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <div class="main-wrapper">
+            <div class="user_detail">
+              <div class="table-responsive ">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th *ngFor="let item of listHeaders; let i=index">
+                        <div class="sortorderwr">
+                          <abbr title="{{item}}">{{item}}</abbr>
+                          <div *ngIf="item==='Artisans Name'|| item==='Total Enquiry'||item==='Total Orders' ">
+                            <span (click)="sort('asc',item)" class="sortorder"><img src="assets/images/sort_a.png"  alt=""></span>
+                            <span (click)="sort('desc',item)" class="sortorder"><img src="assets/images/sort_z.png"  alt=""></span>
+                           </div>
+                        </div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr tabindex="0" [ngClass]="{'back': item.id==focusID}" (click)="focusID=0"
+                      *ngFor="let item of listArr | paginate: { itemsPerPage: 10, currentPage: page,totalItems:total }; let i=index">
+                      <td width="120" (dblclick)="edit(item.id)">
+                        <figure class="tdimg">
+                          <img (error)="def($event, item.id)" src="{{item.artisanImage}}">
+                        </figure>
+                      </td>
+                      <td id="k{{item.id}}" (dblclick)="edit(item.id)">
+                        {{item.name | titlecase}}
+                      </td>
+                      <td (dblclick)="edit(item.id)">{{item.mobile}}</td>
+                      <td (dblclick)="edit(item.id)">{{item.email||"--"}}</td>
+                      <td [ngClass]="{'kycLink': item.kycImage}" (click)="showKYCimage(item, 'KYC')">
+                        <a >{{item.is_verified === '0' ? 'No' : 'Yes'}}</a>
+                      </td>
+                      <td (dblclick)="edit(item.id)">{{(item.stateName | titlecase) || '--'}}</td>
+                      <td (dblclick)="edit(item.id)">{{item?.totalEnq}}</td>
+                      <td (dblclick)="edit(item.id)">{{item?.totalOrders}}</td>
+                      <td><a class="pointer"> <i class="fa fa-pencil" (click)="edit(item.id)" aria-hidden="true"></i>
+                        </a>
+                        &nbsp;
+                        <a class="pointer"> <i style="color: red;" class="fa fa-trash" (click)="delete(item.userId)"
+                            aria-hidden="true"></i></a>
+                      </td>
+                      <td>
+                        <div class="field">
+                          <input id="{{'switchRoundedSuccess'+i}}" type="checkbox"
+                            (change)="changeStatus(i,$event.target.checked, item.userId)" name="switchRoundedSuccess"
+                            class="switch is-rounded is-success" [checked]="item.isActive">
+                          <label for="{{'switchRoundedSuccess'+i}}"></label>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <pagination-controls class="custompaginations" (pageChange)="changePage($event)"></pagination-controls>
+              <notfound *ngIf="listArr?.length==0"></notfound>
+              <!-- <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+                (scrolled)="onScroll()"></div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

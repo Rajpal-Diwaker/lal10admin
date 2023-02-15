@@ -1,0 +1,203 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~quill/dist/quill.core.css';
+@import '~quill/dist/quill.bubble.css';
+@import '~quill/dist/quill.snow.css';
+@import "~@ng-select/ng-select/themes/default.theme.css";
+.multiselect-dropdown .dropdown-btn{
+    display: block;
+    width: 100%;
+    border: 1px solid #000 !important;
+    border-radius: 4px!important;
+    box-sizing: border-box;
+    margin: 5px;
+    outline: 0;
+    font-size: 15px;
+    color: #000;
+    height: 50px;
+    padding: 10px 10px 10px 15px!important;
+    background: #fff;
+    margin: 0;
+}
+.multiselect-dropdown .dropdown-btn .dropdown-down{
+    border:0!important;
+    padding-right: 17px;
+}
+.multiselect-dropdown .dropdown-btn span{
+    padding-top: 3px;
+    display: inline-block;
+}
+.multiselect-dropdown .dropdown-btn .dropdown-down:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f107";
+    display: inline-block;
+    padding-right: 3px;
+    vertical-align: middle;
+    font-weight: 900;
+    font-size:21px;
+    top: -5px;
+    position: relative;
+ }
+ .multiselect-dropdown .dropdown-btn .selected-item{
+    border: 1px solid #c02423!important;
+    background: #c02423!important;
+}
+ .btns_style{
+    background-color: #c02423;
+    color: #fff;
+    border-color: #c02423;
+    border-radius: 5px;
+    padding: 7px 10px;
+    width:100%;
+    display:block;
+    text-align: center;
+ }
+ .btns_style:hover{
+     color:#fff;
+ }
+ .whitebtns_style{
+     border:1px solid #000;
+     border-radius: 5px;
+     color:#000;
+     background: #fff;
+     border-radius: 5px;
+     padding: 7px 10px;
+     display:block;
+     text-align: center;
+     min-width: 150px;
+     margin:0;
+ }
+ .whitebtns_style i{
+     margin-right: 3px;
+ }
+ .tdimg img{
+     height:40px;
+ }
+ .ngx-slider .ngx-slider-bar {
+    height: 14px!important;
+    background: #d8e0f3;
+    border-radius: 7px!important;
+}
+.ngx-slider .ngx-slider-pointer:after{
+    display: none!important;
+}
+.ngx-slider .ngx-slider-pointer {
+    width: 25px!important;
+    height: 25px!important;
+    top: -6px!important;
+    background-color: #c02423!important;
+}
+.modal#swtichmodal{
+    z-index: 1050;
+}
+.modal#swtichmodal .modal-body{
+    padding: 30px;
+}
+.custompaginations li{
+    padding: 0;
+    margin-left: 0;
+    border: 0;
+}
+.custompaginations .pagination-link:active,.custompaginations .pagination-next:active,.custompaginations .pagination-previous:active{
+    box-shadow: none;
+}
+.custompaginations li.current{
+    background: #c02423;
+}
+.custompaginations li.pagination-previous.disabled,.custompaginations li.current,.custompaginations li.pagination-next.disabled {
+    padding:8px 13px;
+}
+.custompaginations ul{
+    margin: 10px 0px!important;
+}
+.custompaginations ul li a{
+    padding: 8px 13px;
+    background: #e6e6e6;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.sortorderwr {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 20px;
+}
+.sortorderwr div{
+    display: flex;
+    margin-left: 5px;
+}
+span.sortorder{
+    color:#fff;
+    font-size:19px;
+    cursor: pointer;
+}
+::placeholder {
+    color: #000!important;
+}
+:-ms-input-placeholder {
+    color: #000!important;
+}
+::-ms-input-placeholder {
+    color: #000!important;
+}
+.form-control:focus,.input:active, .input:focus, .is-active.input, .is-active.textarea, .is-focused.input, .is-focused.textarea, .select select.is-active, .select select.is-focused, .select select:active, .select select:focus, .textarea:active, .textarea:focus,.is-success.input:active, .is-success.input:focus, .is-success.is-active.input, .is-success.is-active.textarea, .is-success.is-focused.input, .is-success.is-focused.textarea, .is-success.textarea:active, .is-success.textarea:focus{
+    box-shadow: none!important;
+}
+.file.is-boxed .file-icon{
+    margin-right: 0px;
+}
+td.tdlink {
+    color:rgb(192, 36, 35);
+    text-decoration: underline;
+}
+label.customlabel{
+    color: #363636;
+    display: block;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.btnflex .input_wrap_search .form-control{
+    display: flex;
+    height: 100%;
+}
+.btnflex .input_wrap_search .fa {
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    transform: translateY(-50%);
+}
+body.swal2-height-auto{
+    padding-right: 0px!important;
+}
+/* .file.is-boxed figure:not(:first-child){
+    position: relative;
+}
+.file.is-boxed figure:not(:first-child) i{
+    font-size: 18px;
+    position: absolute;
+    top: 5px;
+    right: 7px;
+    color: red;
+    cursor: pointer;
+} */
+/* .la-ball-scale-multiple {
+display: none !important;
+} */
+.afterimguploaddiv .product_name{
+    padding:0!important;
+}
+.afterimguploaddiv .product_name input{
+   width: 100%;
+   padding: 8px 6px;
+   border: 0;
+}
+#wordWrap {
+    word-wrap: break-word !important;
+}
+.toast-top-right {
+  margin-top: 70px !important;
+}
+body{
+  display:block!important;
+  overflow-y: auto !important;
+}

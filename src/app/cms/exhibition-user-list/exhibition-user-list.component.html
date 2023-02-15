@@ -1,0 +1,49 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <div class="animated fadeIn">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <div class="main-wrapper">
+            <div class="user_detail">
+              <div class="table-responsive ">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th *ngFor="let item of listHeaders; let i=index">
+                        <abbr title="{{item}}">{{item}}</abbr>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="pointer" *ngFor="let item of listArr; let i=index">
+                      <td>
+                        {{item?.name}}
+                      </td>
+                      <td>{{item?.mobile}}</td>
+                      <td>{{item?.email}}</td>
+                      <!-- <td><a> <i [routerLink]="[ '/userDetail' ]" [queryParams]="{id:item?.userId}"
+                            class="fa fa-eye"></i></a></td> -->
+                      <td>
+                        <div class="field">
+                          <input id="{{'switchRoundedSuccess'+i}}" type="checkbox" name="switchRoundedSuccess"
+                            (change)="changeStatus(i,$event.target.checked, item.id)"
+                            class="switch is-rounded is-success" [checked]="item.isActive">
+                          <label for="{{'switchRoundedSuccess'+i}}"></label>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <notfound *ngIf="listArr?.length==0"></notfound>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

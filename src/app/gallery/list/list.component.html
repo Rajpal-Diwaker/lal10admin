@@ -1,0 +1,67 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <div class="sort_filter_wrap">
+      <div class="heading_divwr">
+        <div class="screen_heading">
+          <h3>Gallery</h3>
+        </div>
+        <div >
+          <div class="btnflex">
+          
+            <a (click)="download()"  class="whitebtns_style"><i
+                aria-hidden="true" class="fa fa-plus-circle"></i> Download
+            </a>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="animated fadeIn">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <div class="main-wrapper">
+            <div class="user_detail">
+              <div class="table-responsive ">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th *ngFor="let item of listHeaders; let i=index">
+                        <abbr title="{{item}}">{{item}}</abbr>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of listArr; let i=index">
+                      <td width="120">
+                        <figure class="tdimg">
+                          <img (error)="def($event, item.id)" src="{{item?.artisanImage}}">
+                        </figure>
+                      </td>
+                      <td>
+                        {{item?.title | titlecase}}
+                      </td>
+                      <td>{{item?.artisanName||'0'}}
+                        
+                      </td>
+                      <td>{{item?.totalImage||"0"}}
+                        <i [routerLink]="[ '/gallery/view' ]" [queryParams]="
+                        {id:item?.id}" class="fa fa-eye"></i>
+                      </td>
+                     
+                    </tr>
+                  </tbody>
+                </table>
+                <notfound *ngIf="listArr?.length==0"></notfound>
+              </div>
+              <!-- <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+                (scrolled)="onScroll()"></div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

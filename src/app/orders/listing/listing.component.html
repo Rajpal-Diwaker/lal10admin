@@ -1,0 +1,106 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <!-- <div class="right-sde" style="margin-top:10px;margin-right: 36px;">
+    <span>
+      <button type="button" (click)="download()" class="btn btn-block">Download</button>
+    </span>
+    <input class="form-control" placeholder="Search" (keyup)="search($event)">
+  </div> -->
+  <div class="content">
+    <div class="animated fadeIn">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="sort_filter_wrap">
+            <div class="heading_divwr">
+              <div>
+                <h3>Orders</h3>
+              </div>
+              <div class="btnflex">
+                <!-- <button class="whitebtns_style">Export Invoice Details</button> -->
+                <button class="whitebtns_style" (click)="download()">Export Orders</button>
+                <!-- <div class="select">
+                  <select>
+                    <option>Sorted By</option>
+                    <option>Option:1</option>
+                    <option>Option:2</option>
+                    <option>Option:3</option>
+                  </select>
+                </div> -->
+                <div class="select" hidden>
+                  <select>
+                    <option>Filter By</option>
+                    <option>Option:1</option>
+                    <option>Option:2</option>
+                    <option>Option:3</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <div class="main-wrapper">
+            <div class="user_detail">
+              <div class="table-responsive ">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th *ngFor="let item of listHeaders ">
+                        <div class="sortorderwr">
+                          <abbr title="{{item}}" *ngIf="item !== 'Action'; else elseTemp">{{item}}</abbr>
+                          <ng-template #elseTemp>
+                            <abbr>{{item}}</abbr>
+                            <span class="infoIcon">
+                              <i title="This is to help artisan who can not generate their invoice on their own" class="fa fa-info-circle"></i>
+                            </span>
+                          </ng-template>
+
+                          <div *ngIf="item==='Artisans Name'|| item==='Amount'">
+                            <span (click)="sort('asc',item)" class="sortorder"> <img src="assets/images/sort_a.png"  alt=""></span>
+                            <span (click)="sort('desc',item)" class="sortorder"> <img src="assets/images/sort_z.png"  alt=""></span>
+                          </div>
+                        </div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr tabindex="0" [ngClass]="{'back': item.id==focusID}" (click)="focusID=0"
+                    *ngFor="let item of listArr | paginate: { itemsPerPage: 10, currentPage: page,totalItems:total }; let i=index">
+                      <td width="120">
+                        <figure class="tdimg"><img [src]='item?.image'></figure>
+                      </td>
+                      <td>
+                        {{item?.orderId}}
+                        <span [routerLink]="[ '/orders/orderDetails' ]" [queryParams]="item"><i
+                            class="pointer fa fa-eye"></i></span>
+                      </td>
+                      <td id="k{{item.id}}">{{item?.title}}</td>
+                      <td>{{item?.artisanName}}</td>
+                      <td>{{item?.expPrice||'---'}}</td>
+                      <td>{{(item?.place_on | date )||'---'}}</td>
+                      <td>
+                        <div class="table_buttons" [routerLink]="[ '/orders/generateOrder' ]"
+                          [queryParams]="{id:item?.EnqId,userId:item?.userId, productName: item?.productName, page: page, focusid: item.id}"> <button>Generate Invoice</button> </div>
+                      </td>
+                      <td [routerLink]="[ '/orders/chat']" [queryParams]="{item: item | json, page: page}">
+                        <!-- <span class="badge"></span> -->
+                        <div class="chat_tem_wrap">
+                          <span class="notification_count" *ngIf="item.chatCount">{{item.chatCount}}</span>
+                          <button>Chat</button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <notfound *ngIf="listArr?.length==0"></notfound>
+              </div>
+              <pagination-controls class="custompaginations" (pageChange)="changePage($event)"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

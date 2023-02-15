@@ -1,0 +1,255 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <div class="animated fadeIn">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="sort_filter_wrap">
+            <div class="heading_divwr">
+              <div class="screen_heading">
+                <h3>Enquiries</h3>
+              </div>
+              <div>
+                <div class="btnflex">
+                  <button [hidden]="type==3" [routerLink]="[ '/enquiries/emailEnq' ]" [queryParams]="{type:'enquiries'}"
+                    class="whitebtns_style"><i aria-hidden="true" class="fa fa-plus-circle"></i>
+                    Generate New Enquiry</button>
+                  <button class="whitebtns_style" (click)="downloadSample()">Download Sample </button>
+                  <button (click)="download()" class="whitebtns_style">Export Data</button>
+                  <input type="file" style="display: none;" id="import" accept=".csv" (change)="import($event)">
+                  <label for="import" class="whitebtns_style"><i class="fa fa-download" aria-hidden="true"></i> Import
+                    Enquiries</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div>
+              <div class="contant_wrap">
+                <!--    Tab Section Start Here  -->
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="tab_data_wapper">
+                      <div class="tabbable-panel">
+                        <div class="tabbable-line enquiry_tab">
+                          <ul class="nav nav-tabs ">
+                            <li [ngClass]="{'active': type=='1'}" (click)="setActive(1); type=1">
+                              <a href="#tab_default_1" data-toggle="tab">
+                                Lead Enquiries </a>
+                            </li>
+                            <li [ngClass]="{'active': type=='2'}" (click)="setActive(2); type=2">
+                              <a href="#tab_default_2" data-toggle="tab">
+                                Email Enquiries &nbsp;&nbsp; <span *ngIf="type == '2'" (click)="refresh(2)" style="cursor: pointer;" title="refresh" class="material-icons">
+                                  refresh
+                                  </span></a>
+
+                            </li>
+                            <li [ngClass]="{'active': type=='3'}" (click)="setActive(3); type=3">
+                              <a href="#tab_default_3" data-toggle="tab">
+                                Website Enquiries </a>
+                            </li>
+                          </ul>
+                          <div class="tab-content">
+                            <div class="tab-pane" id="tab_default_1" [ngClass]="{'active': type=='1'}">
+                              <div class="main-wrappers">
+                                <div class="user_detail">
+                                  <div class="table-responsive ">
+                                    <table class="table">
+                                      <thead>
+                                        <tr>
+                                          <th>
+                                            <div class="sortorderwr">
+                                              Enquiry ID
+                                              <div>
+                                                <span (click)="sort('asc','uniqueId')" class="sortorder"> <img src="assets/images/sort_a.png"  alt=""></span>
+                                                <span (click)="sort('desc','uniqueId')" class="sortorder"> <img src="assets/images/sort_z.png"  alt=""></span>
+                                              </div>
+                                            </div>
+                                          </th>
+                                          <th>
+                                            <div class="sortorderwr">
+                                              User Name
+                                              <div>
+                                                <span (click)="sort('asc','name')" class="sortorder"> <img src="assets/images/sort_a.png"  alt=""></span>
+                                                <span (click)="sort('desc','name')" class="sortorder"> <img src="assets/images/sort_z.png"  alt=""></span>
+                                              </div>
+                                            </div>
+                                          </th>
+                                          <th>
+                                            <div class="sortorderwr">
+                                              Lead By
+                                              <div>
+                                                <span (click)="sort('asc','leadBy')" class="sortorder"> <img src="assets/images/sort_a.png"  alt=""></span>
+                                                <span (click)="sort('desc','leadBy')" class="sortorder"> <img src="assets/images/sort_z.png"  alt=""></span>
+                                              </div>
+                                            </div>
+                                          </th>
+                                          <th> Email ID </th>
+                                          <th> Title</th>
+                                          <th>Description</th>
+                                          <th>Action</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr tabindex="0" [ngClass]="{'back': item.id==focusID}" (click)="focusID=0"
+                                        *ngFor="let item of list | paginate: { itemsPerPage: 10, currentPage: page,totalItems:total }">
+                                          <td (dblclick)="leadBtn.click()">{{item?.uniqueId}}</td>
+                                          <td id="kl{{item.id}}"  (dblclick)="leadBtn.click()">{{item?.name}}</td>
+                                          <td  (dblclick)="leadBtn.click()">{{item?.leadBy||'----'}}</td>
+                                          <td  (dblclick)="leadBtn.click()">{{item?.email}}</td>
+                                          <td  (dblclick)="leadBtn.click()">{{item?.title}}</td>
+                                          <td  (dblclick)="leadBtn.click()">
+                                            <p class="descripion_tag">{{item?.description}}</p>
+                                          </td>
+                                          <td>
+                                            <div class="table_buttons"> <button #leadBtn [routerLink]="[ '/enquiries/emailEnq' ]"
+                                                [queryParams]="{id:item?.id,type:'lead', page: page}">Generate Enquiry</button>
+                                            </div>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                  <pagination-controls class="custompaginations" (pageChange)="changePage($event, 1)"></pagination-controls>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="tab-pane" id="tab_default_2" [ngClass]="{'active': type=='2'}">
+                              <div class="main-wrappers">
+                                <div class="user_detail">
+                                  <div class="table-responsive ">
+                                    <table class="table">
+                                      <thead>
+                                        <tr>
+                                          <th>
+                                            <div class="sortorderwr">
+                                              Sender
+                                              <div>
+                                                <span (click)="sort('asc','name')" class="sortorder"> <img src="assets/images/sort_a.png"  alt=""></span>
+                                                <span (click)="sort('desc','name')" class="sortorder"> <img src="assets/images/sort_z.png"  alt=""></span>
+                                              </div>
+                                            </div>
+                                          </th>
+                                          <th>
+                                            <div class="sortorderwr">
+                                              Enquiry ID
+                                              <div>
+                                                <span (click)="sort('asc','uniqueId')" class="sortorder"> <img src="assets/images/sort_a.png"  alt=""></span>
+                                                <span (click)="sort('desc','uniqueId')" class="sortorder"> <img src="assets/images/sort_z.png"  alt=""></span>
+                                              </div>
+                                            </div>
+                                          </th>
+                                          <th> Email ID </th>
+                                          <th> Subject</th>
+                                          <th>
+                                            <div class="sortorderwr">
+                                              Received on
+                                              <div>
+                                                <span (click)="sort('asc','created_at')" class="sortorder"> <img src="assets/images/sort_a.png"  alt=""></span>
+                                                <span (click)="sort('desc','created_at')" class="sortorder"> <img src="assets/images/sort_z.png"  alt=""></span>
+                                              </div>
+                                            </div>
+                                          </th>
+                                          <!-- <th>Description</th> -->
+                                          <th>Action</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr tabindex="0" [ngClass]="{'back': item.id==focusID}" (click)="focusID=0"
+                                         *ngFor="let item of list | paginate: { itemsPerPage: 10, currentPage: page,totalItems:total }">
+                                          <td id="ke{{item.id}}" (dblclick)="emailBtn.click()">{{item?.name}}</td>
+                                          <td (dblclick)="emailBtn.click()">{{item?.uniqueId}}</td>
+                                          <td (dblclick)="emailBtn.click()">{{item?.mailBy}}</td>
+                                          <td (dblclick)="emailBtn.click()">{{item?.mailSubject}}</td>
+                                          <td (dblclick)="emailBtn.click()">{{item?.created_at | date}}</td>
+                                          <!-- <td>
+                                            <p class="descripion_tag">{{item?.description}}</p>
+                                          </td> -->
+                                          <td #emailBtn [routerLink]="[ '/enquiries/emailGenerateEnq' ]"
+                                            [queryParams]="{id:item?.id,type:'email', page: page}">
+                                            <div class="table_buttons"> <button>Generate Enquiry</button> </div>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                  <pagination-controls class="custompaginations" (pageChange)="changePage($event, 2)"></pagination-controls>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="tab-pane" id="tab_default_3" [ngClass]="{'active': type=='3'}">
+                              <div class="main-wrappers">
+                                <div class="user_detail">
+                                  <div class="table-responsive ">
+                                    <table class="table">
+                                      <thead>
+                                        <tr>
+                                          <th>
+                                            <div class="sortorderwr">
+                                              Enquiry ID
+                                              <div>
+                                                <span (click)="sort('asc','id')" class="sortorder"> <img src="assets/images/sort_a.png"  alt=""></span>
+                                                <span (click)="sort('desc','id')" class="sortorder"> <img src="assets/images/sort_z.png"  alt=""></span>
+                                              </div>
+                                            </div>
+                                          </th>
+                                          <th>
+                                            <div class="sortorderwr">
+                                              Artisan Name
+                                              <div>
+                                                <span (click)="sort('asc','artisanName')" class="sortorder"> <img src="assets/images/sort_a.png"  alt=""></span>
+                                                <span (click)="sort('desc','artisanName')" class="sortorder"> <img src="assets/images/sort_z.png"  alt=""></span>
+                                              </div>
+                                            </div>
+                                          </th>
+                                          <th> Email ID </th>
+                                          <th> Title</th>
+                                          <th>Description</th>
+                                          <th>Date</th>
+                                          <th>Action</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr tabindex="0" [ngClass]="{'back': item.id==focusID}" (click)="focusID=0"
+                                         *ngFor="let item of list | paginate: { itemsPerPage: 10, currentPage: page,totalItems:total }">
+                                          <td (dblclick)="websiteBtn.click()">{{item?.uniqueId}}</td>
+                                          <td id="kw{{item.id}}" (dblclick)="emailBtn.click()">{{item?.name||'----'}}</td>
+                                          <td (dblclick)="websiteBtn.click()">{{item?.email||'--'}}</td>
+                                          <td (dblclick)="websiteBtn.click()">
+                                            <p class="descripion_tag"> {{item?.title}} </p>
+                                          </td>
+                                          <td (dblclick)="websiteBtn.click()">
+                                            <p class="descripion_tag">{{item?.description}}</p>
+                                          </td>
+                                          <td (dblclick)="websiteBtn.click()">
+                                            <p class="descripion_tag">{{item?.created_at | date}}</p>
+                                          </td>
+                                          <td>
+                                            <div class="table_buttons"> <button #websiteBtn [routerLink]="[ '/enquiries/emailEnq' ]"
+                                                [queryParams]="{id:item?.id,type:'web', page: page}">Generate Enquiry</button>
+                                            </div>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                  <pagination-controls class="custompaginations" (pageChange)="changePage($event, 3)"></pagination-controls>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <notfound *ngIf="list?.length==0"></notfound>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--    Tab Section End Here  -->
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>

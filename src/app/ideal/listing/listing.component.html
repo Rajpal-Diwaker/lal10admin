@@ -1,0 +1,70 @@
+<app-sidebar></app-sidebar>
+
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content" style="padding-top: 0px !important;">
+    <div class="animated fadeIn">
+      <div class="sort_filter_wrap">
+        <div class="heading_divwr">
+          <div class="screen_heading">
+            <h3>Ideal Shop</h3>
+          </div>
+          <div>
+            <div class="btnflex">
+              <div class="input_wrap_search">
+                <input class="form-control" placeholder="Search" (keyup)="search($event)">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </div>
+              <a [routerLink]="'/ideal/add'" class="whitebtns_style"><i aria-hidden="true"
+                  class="fa fa-plus-circle"></i> Add Product
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <div class="main-wrapper">
+            <div class="user_detail">
+              <div class="table-responsive ">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th *ngFor="let item of listHeaders">
+                        <abbr title="{{item}}">{{item}}</abbr>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let item of listArr | paginate: { itemsPerPage: 10, currentPage: page,totalItems:total }; let i=index">
+                      <td width="120">
+                        <figure class="tdimg">
+                          <img (error)="def($event, item?.id)" src="{{item?.image}}">
+                        </figure>
+                      </td>
+                      <td>{{item?.name}}</td>
+                      <td>{{item?.artisanName||'---'}}</td>
+                      <td>{{item?.amount}}</td>
+                      <td>{{item?.inventoryQty}}</td>
+                      <td>{{item?.doableQty}}</td>
+                      <!-- <td><i class="pointer icon fa fa-eye" ></i></td> -->
+                      <td>{{item?.material||'----'}}</td>
+                      <td>
+                        <a class="pointer"> <i (click)="delete(item)" style="color: red;" class="fa fa-trash" aria-hidden="true"></i></a>
+
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <pagination-controls class="custompaginations" (pageChange)="changePage($event)"></pagination-controls>
+              <notfound *ngIf="listArr?.length == 0"></notfound>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

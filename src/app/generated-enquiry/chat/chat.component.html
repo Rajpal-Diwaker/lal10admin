@@ -1,0 +1,258 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="chatmainwr">
+          <!--chat start here-->
+          <div class="chatperson">
+            <div class="chatpersonimgwr">
+               <div class="gotochatbtn">
+                  <button class="btn btn-primary"
+                  [routerLink]="[ '/generated-enquiry/listArtisan' ]"
+                  [queryParams]="{type:'1',id:details?.EnqId}">Go to Chat List</button>
+                </div>
+              <div class="chatpersonimg">
+
+                <img [src]="details?.artisanImage" onError="this.src='assets/images/def.png';">
+
+              </div>
+              <!-- <span class="onlinestatus"></span> -->
+
+              <div class="chatpname">
+                {{details?.name}}
+                <span></span>
+              </div>
+            </div>
+            <div class="chat_options">
+              <a><div (click)="confirmPopup('Do you want to place the call ?', 'CALL')" *ngIf="details.mobile" class="chat_optiondiv">Call</div></a>
+
+              <div (click)="purchaseOrder()" class="chat_optiondiv" [hidden]="details?.orderAccept==1">Purchase order
+              </div>
+              <div (click)="estimate()" class="chat_optiondiv">Estimate Order</div>
+              <!-- <div [routerLink]="[ '/enquiries/logisticDetails']" class="chat_optiondiv">Logistic detail</div> -->
+              <!-- <div class="chat_optiondiv">Upload/Generate invoice</div> -->
+              <div [routerLink]="[ '/generated-enquiry/gallery']" [queryParams]='details' class="chat_optiondiv"> Gallery </div>
+            </div>
+          </div>
+          <!--chat end here-->
+          <!--chat screen start here-->
+          <div class="chat_screencontent" (scroll)="onScroll($event.target.scrollTop)">
+
+            <ng-container *ngFor="let item of listArr; let i=index">
+
+              <!-- right screen start -->
+              <div class="clearfix text-right" [hidden]="item?.fromId!=adminId">
+                <div class="chat_sender" *ngIf="item?.type=='text'; else imageRight">
+                  <!-- <ng-container *ngIf="item?.type=='text'; else imageRight"> -->
+                  <div [innerHtml]="item?.message | safe: 'html'"></div>
+                  <!-- </ng-container> -->
+                  <!-- <ng-template #imageRight> -->
+                  <!-- <div class="messagealerts">
+                      You Share a Image
+                      <span class="alerttime"> {{item?.created_at}}</span>
+                    </div> -->
+                  <!-- </ng-template> -->
+                  <!-- <div [innerHtml]="item?.message | safe: 'html'"></div> -->
+                  <!--for unread unseen read -->
+                  <span class="chattime" *ngIf="item?.type=='text'">
+                    <!-- double click start here -->
+                    <span *ngIf="item?.isRead=='1'" class="unread"><svg xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 16 15" width="16" height="15">
+                        <path
+                          d="M15.01 3.316l-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
+                        </path>
+                      </svg></span>
+                    <!-- double click end here -->
+                    <!-- blue click start here -->
+                    <span *ngIf="item?.isRead=='2'" class="read"><svg xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 16 15" width="16" height="15">
+                        <path
+                          d="M15.01 3.316l-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
+                        </path>
+                      </svg>
+                    </span>
+                    <!-- blue click start here -->
+                    <!-- unseen start here -->
+                    <span *ngIf="item?.isRead=='0'" class="unseen"> <svg xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 16 15" width="16" height="15">
+                        <path
+                          d="M10.91 3.316l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
+                        </path>
+                      </svg></span>{{item?.created_at}}
+                  </span>
+                </div>
+              </div>
+              <!-- 'delete','text','image','logistic','invoice','tracker','purchase','estimate','comment','price','general','description' -->
+
+              <!-- Left  hand screen end -->
+              <!-- right hand screen start -->
+              <ng-template #imageRight>
+
+                <div class="clearfix">
+                  <ng-container>
+                    <div class="messagealerts" *ngIf="item?.type==='image';else elseTemplate">
+                      <!-- You share a image -->
+
+                      <ng-container *ngFor="let image of item?.files">
+                        <img class="senderimg" [src]="image | safe: 'url'"
+                          onError="this.src='assets/images/def.png';">
+                      </ng-container>
+                      <!-- <img style="width: 20em;height: 11em;" [src]="item?.files"> -->
+                      <!-- <span class="alerttime"> {{item?.created_at}}</span> -->
+                    </div>
+                  </ng-container>
+                  <ng-template #elseTemplate>
+                    <!-- 'delete','text','image','logistic','invoice','tracker','purchase','estimate','comment','price','general','description' -->
+
+                    <div class="messagealerts" *ngIf="item?.type=='description'">
+                     <p> {{item?.message}} </p>
+                      <!-- <span class="alerttime"> {{item?.created_at}}</span> -->
+                    </div>
+                    <div class="messagealerts" *ngIf="item?.type=='logistic'">
+                      <p>You updated Logistic Details </p>
+                      <!-- <span class="alerttime"> {{item?.created_at}}</span> -->
+                    </div>
+                    <div class="messagealerts" *ngIf="item?.type=='invoice'">
+                      <p> you have update invoice </p>
+                      <!-- <span class="alerttime"> {{item?.created_at}}</span> -->
+                    </div>
+                    <div class="messagealerts" *ngIf="item?.type=='tracker'">
+                      <p> you have update tracker </p>
+                      <!-- <span class="alerttime"> {{item?.created_at}}</span> -->
+                    </div>
+                    <div class="messagealerts" *ngIf="item?.type=='delete'">
+                      <p>  You deleted an Image </p>
+                      <!-- <span class="alerttime"> {{item?.created_at}}</span> -->
+                    </div>
+                    <div class="messagealerts" *ngIf="item?.type=='estimate'">
+                      <p (click)="openURL(item.files)" class="styleCursor"> You shared Estimate Order </p>
+                      <!-- <span class="alerttime"> {{item?.created_at}}</span> -->
+                    </div>
+                    <div class="messagealerts" *ngIf="item?.type=='comment'">
+                      <p class="styleCursor" [routerLink]="[ '/generated-enquiry/gallery']" [queryParams]='details'> You updated Comment On Image </p>
+                      <!-- <span class="alerttime"> {{item?.created_at}}</span> -->
+                    </div>
+                    <div class="messagealerts" *ngIf="item?.type=='general'">
+                      <ng-container *ngFor="let image of item?.files">
+                        <img class="senderimg" [src]="image | safe: 'url'"
+                          onError="this.src='assets/images/def.png';" (click)="showImage(image)">
+                      </ng-container>
+                      <!-- <img style="width: 20em;height: 11em;" [src]="item?.files"> -->
+                      <!-- <span class="alerttime"> {{item?.created_at}}</span> -->
+                    </div>
+
+
+                  </ng-template>
+                </div>
+                <div class="clearfix" *ngIf="item?.type==='purchase'">
+                  <div class="messagealerts">
+                    <p class="styleCursor" (click)="openURL(item.files)"> You shared Purchase Order </p>
+                    <!-- <span class="alerttime"> {{item?.created_at}}</span> -->
+                  </div>
+                </div>
+              </ng-template>
+              <!-- receiver box start here -->
+              <!-- sumit left hand side  -->
+              <div class="clearfix" [hidden]="item?.fromId==adminId">
+
+                <div class="chat_reciver" *ngIf="item?.type=='text';">
+
+                  <ng-container *ngIf="item?.type=='text';">
+
+                    <div [innerHtml]="item?.message | safe: 'html'"></div>
+                  </ng-container>
+                  <!-- <div *ngIf="item?.type==='image'"> -->
+
+                  <!-- </div> -->
+                  <span class="chattime">
+                    {{item?.created_at}}</span>
+                </div>
+                <ng-container *ngIf="item?.type!=='text';">
+                  <div *ngIf="item?.type=='image'">
+
+                    <ng-container *ngFor="let image of item?.files">
+                      <img class="receiverimg" [src]="image | safe: 'url' "
+                        onError="this.src='assets/images/def.png';" (click)="showImage(image)">
+                    </ng-container>
+
+                  </div>
+
+                  <!-- condition -->
+                  <div class="messagealerts" *ngIf="item?.type=='description'">
+                    <p>{{item?.message}}</p>
+                    <!-- <span class="alerttime"> {{item?.created_at}}</span> -->
+
+                  </div>
+                  <div class="messagealerts" *ngIf="item?.type=='logistic'">
+                    <p class="styleCursor">Artisan updated Logistic Details</p>
+                    <!-- <span class="alerttime"> {{item?.created_at}}</span> -->
+
+                  </div>
+                  <div class="messagealerts" *ngIf="item?.type=='invoice'">
+                    <p class="styleCursor">Artisan updated Product Invoice</p>
+                    <!-- <span class="alerttime"> {{item?.created_at}}</span> -->
+
+                  </div>
+                  <div class="messagealerts" *ngIf="item?.type=='tracker'">
+                    <p class="styleCursor">Artisan updated Product Tracker</p>
+                    <!-- <span class="alerttime"> {{item?.created_at}}</span> -->
+
+                  </div>
+                  <div class="messagealerts" *ngIf="item?.type=='delete'">
+                    <p>Artisan deleted an Image</p>
+                    <!-- <span class="alerttime"> {{item?.created_at}}</span> -->
+
+                  </div>
+                  <div class="messagealerts" *ngIf="item?.type=='estimate'">
+                    <p (click)="openURL(item.files)" class="styleCursor">Artisan shared Estimate Order</p>
+                    <!-- <span class="alerttime"> {{item?.created_at}}</span> -->
+
+                  </div>
+                  <div class="messagealerts" *ngIf="item?.type=='comment'">
+                    <p class="styleCursor" [routerLink]="[ '/generated-enquiry/gallery']" [queryParams]='details'>Artisan updated Comment On Image</p>
+                    <!-- <span class="alerttime"> {{item?.created_at}}</span> -->
+
+                  </div>
+                  <div class="messagealerts" *ngIf="item?.type=='price'">
+                    <p class="styleCursor" [routerLink]="[ '/generated-enquiry/gallery']" [queryParams]='details'>Artisan updated Price On Image</p>
+                    <!-- <span class="alerttime"> {{item?.created_at}}</span> -->
+
+                  </div>
+                </ng-container>
+              </div>
+            </ng-container>
+          </div>
+          <!--chat screen end here-->
+          <!--chat input end here-->
+          <div class="chat_input" [formGroup]='myForm' (keyup.enter)="send(myForm.value)">
+            <input type="text" name="message" id="message" autocomplete="off" placeholder="Type your message....."
+              formControlName='msg'>
+            <label for="uploadfile" class="uploadfile">
+              <svg viewBox="0 0 24 24" width="24" height="24">
+                <path
+                  d="M1.816 15.556v.002c0 1.502.584 2.912 1.646 3.972s2.472 1.647 3.974 1.647a5.58 5.58 0 0 0 3.972-1.645l9.547-9.548c.769-.768 1.147-1.767 1.058-2.817-.079-.968-.548-1.927-1.319-2.698-1.594-1.592-4.068-1.711-5.517-.262l-7.916 7.915c-.881.881-.792 2.25.214 3.261.959.958 2.423 1.053 3.263.215l5.511-5.512c.28-.28.267-.722.053-.936l-.244-.244c-.191-.191-.567-.349-.957.04l-5.506 5.506c-.18.18-.635.127-.976-.214-.098-.097-.576-.613-.213-.973l7.915-7.917c.818-.817 2.267-.699 3.23.262.5.501.802 1.1.849 1.685.051.573-.156 1.111-.589 1.543l-9.547 9.549a3.97 3.97 0 0 1-2.829 1.171 3.975 3.975 0 0 1-2.83-1.173 3.973 3.973 0 0 1-1.172-2.828c0-1.071.415-2.076 1.172-2.83l7.209-7.211c.157-.157.264-.579.028-.814L11.5 4.36a.572.572 0 0 0-.834.018l-7.205 7.207a5.577 5.577 0 0 0-1.645 3.971z">
+                </path>
+              </svg>
+            </label>
+            <label for="submitchat" class="submitchat">
+              <svg viewBox="0 0 24 24" width="24" height="24">
+                <path f d="M1.101 21.757L23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z"></path>
+              </svg>
+            </label>
+            <input (click)="send(myForm.value)" type="submit" class="hideinput" id="submitchat">
+            <div *ngIf=" submitted && f.msg.errors" class="invalid requiredTxt">
+              <div *ngIf="f.msg.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+            <input type="file" accept="image/*" (change)="fileUpload($event)" class="hideinput" id="uploadfile">
+          </div>
+          <!--chat input end here-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--unseen-->
+  <!--unseen-->

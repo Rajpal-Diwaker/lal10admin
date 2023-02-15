@@ -1,0 +1,34 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+ 
+    <form [formGroup]="myform" (ngSubmit)="submit(myform.value)">
+      <h3 class="title">{{editFlag!=true?'Add New point':'Edit new point'}}</h3>
+      
+      <div class="row input_form_wrap">
+        <div class="field col-sm-6">
+          <label class="label">Title</label>
+          <div class="control">
+            <textarea name="" id="" cols="50" rows="10" formControlName="title"></textarea>
+            <!-- <input class="input"  type="text" maxlength="40" placeholder="Description" > -->
+            <div *ngIf="f.title.errors && f.title.touched" class="invalid">
+              <div *ngIf="f.title.errors.required">
+                <p style="color: red;">title is required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+        <div class="field is-grouped col-sm-12">
+          <div class="control">
+            <button type="submit" class="button is-link">Submit</button>
+          </div>
+          <div class="control">
+            <button class="button is-link is-light" [routerLink]="'/app-setting'">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

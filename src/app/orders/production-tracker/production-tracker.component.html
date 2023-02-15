@@ -1,0 +1,83 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+
+    <div class="row">
+      <div class="col-md-3">
+        <h3 class="title">Production Tracker</h3>
+      </div>
+      <div class="col-md-9" (click)="goToChat()">
+        <button class="btn btn-primary">Go To Chat</button>
+      </div>
+    </div>
+
+
+      <div class="input_form_wrap">
+        <div class="field col-sm-6">
+          <label class="label">Production Status</label>
+          <div class="control">
+            <!-- <input class="input" type="text" placeholder="Logistic Carrier" formControlName="supplier"> -->
+            <ngx-slider disabled [(value)]="producationValue" [options]="options" (userChangeEnd)="dataChanged($event)" >
+            </ngx-slider>
+            <div *ngIf="f.supplier.errors && f.supplier.touched" class="invalid">
+              <div *ngIf="f.supplier.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Payment Status</label>
+          <div class="control has-icons-left has-icons-right">
+            <ngx-slider [(value)]="paymentValue" [options]="paymentOptions" (userChangeEnd)="dataChanged($event)">
+            </ngx-slider>
+            <div *ngIf="f.shipTo.errors && f.shipTo.touched" class="invalid">
+              <div *ngIf="f.shipTo.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Delivery Date </label>
+          <div class="control has-icons-left has-icons-right">
+            <ngx-slider [(value)]="currentDate" [options]="deliveryOptions" >
+            </ngx-slider>
+            <div *ngIf="f.totalQTY.errors && f.totalQTY.touched" class="invalid">
+              <div *ngIf="f.totalQTY.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label" *ngIf="image && image.length">Image</label>
+          <div class="control has-icons-left has-icons-right">
+            <!-- <input class="input is-success" type="text" placeholder="Payment Mode" formControlName="productName"> -->
+            <div id="education_fields clearfix" >
+              <div class="project_photo" >
+                  <label class="newbtn row" *ngFor="let item of image">
+                      <img id="blah" [src]='item?.files' onError="this.src='assets/images/def.png';">
+                  </label>
+              </div>
+            </div>
+            <div *ngIf="f.productName.errors && f.productName.touched" class="invalid">
+              <div *ngIf="f.productName.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 field  is-grouped">
+          <div class="control">
+            <button type="submit" class="button is-link" (click)="submit(true)">Submit</button>
+          </div>
+          <div class="control">
+            <button type="submit" class="button is-link" (click)="submit(false)">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</div>

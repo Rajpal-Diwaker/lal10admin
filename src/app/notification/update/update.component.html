@@ -1,0 +1,153 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <form [formGroup]="artisanGrp" (ngSubmit)="submit(artisanGrp.value)">
+      <h3 class="title">Notification</h3>
+      <div class="row input_form_wrap">
+        <div class="field col-sm-6">
+          <label class="label">Send Via</label>
+          <div class="control">
+            <div class="select">
+              <select formControlName="sendType">
+                <option value="push">Push Notification</option>
+                <option value="email">Email Notification</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Select artisan group</label>
+          <div class="control  has-icons-right">
+            <div class="select">
+              <!-- <select class="form-control" formControlName="userIds">
+                <option value="">Select Artisan group</option>
+                <option value="All">All</option>
+                <option *ngFor="let item of artisanList; let i=index" [value]='item?.id'>
+                  {{item?.group_name}}</option>
+              </select> -->
+              <ng-multiselect-dropdown (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)" formControlName="userIds" [placeholder]="'Select Artisans'" [data]="artisanList"
+              [settings]="materialSetting">
+            </ng-multiselect-dropdown>
+            </div>
+            <div *ngIf="f.userIds.errors && f.userIds.touched" class="invalid">
+              <div *ngIf="f.userIds.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Message</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input is-success" type="text" placeholder="Message" formControlName="message">
+            <div *ngIf="f.message.errors && f.message.touched" class="invalid">
+              <div *ngIf="f.message.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        
+        <div class="field col-sm-6">
+          <label class="label">Notification Action</label>
+          <div class="control">
+            <div class="select">
+              <select formControlName="type">
+                <option value="">Select type</option>
+                <option *ngFor="let item of notificationType; let i=index" [value]='item'>{{item}}</option>
+              </select>
+            </div>
+            <div *ngIf="f.type.errors && f.type.touched" class="invalid">
+              <div *ngIf="f.type.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>          
+        </div>
+        <div class="field col-sm-6"  [hidden]="f.type.value!='URL'">
+          <label class="label">Add URL</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input is-success" type="text" placeholder="URL" formControlName="URL">
+            <div *ngIf="f.URL.errors && f.URL.touched" class="invalid">
+              <div *ngIf="f.URL.errors.pattern">
+                <p style="color: red;">Not a valid url</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field is-grouped col-sm-12">
+          <div class="control">
+            <button type="submit" class="button is-link">Submit</button>
+          </div>
+          <div class="control">
+            <button class="button is-link is-light" [routerLink]="'/notification'">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="animated fadeIn">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <div class="main-wrapper">
+            <div class="user_detail">
+              <div class="table-responsive ">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th *ngFor="let item of listHeaders; let i=index">
+                        <div class="sortorderwr">
+                          <abbr title="{{item}}">{{item}}</abbr>
+                        </div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let item of listArr | paginate: { itemsPerPage: 10, currentPage: page,totalItems:total }; let i=index">
+                      <td width="120">
+                        <!-- <mat-checkbox checked #checkbox (change)='check(checkbox.checked)' class="example-margin"></mat-checkbox> -->
+                        <input type="checkbox" (change)=check(item,$event.target.checked)  [checked]="item?.isChecked">
+                        <figure class="tdimg">
+                          <img  src="{{item?.artisanImage}}" onError="this.src='assets/images/def.png';"
+                          >
+                        </figure>
+                      </td>
+                      <td>
+                        {{item.name | titlecase}}
+                      </td>
+                      <td>{{item.mobile}}</td>
+                      <td>{{(item.stateName | titlecase) || '--'}}</td>
+                      <td>{{item?.totalEnq}}</td>
+                      <td>{{item?.totalOrders}}</td>
+                      <!-- <td><a class="pointer"> <i class="fa fa-pencil" (click)="edit(item.id)" aria-hidden="true"></i>
+                        </a>
+                        &nbsp;
+                        <a class="pointer"> <i style="color: red;" class="fa fa-trash" (click)="delete(item.userId)"
+                            aria-hidden="true"></i></a>
+                      </td> -->
+                      <!-- <td>
+                        <div class="field">
+                          <input id="{{'switchRoundedSuccess'+i}}" type="checkbox"
+                            (change)="changeStatus(i,$event.target.checked, item.userId)" name="switchRoundedSuccess"
+                            class="switch is-rounded is-success" [checked]="item.isActive">
+                          <label for="{{'switchRoundedSuccess'+i}}"></label>
+                        </div>
+                      </td> -->
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <pagination-controls class="custompaginations" (pageChange)="changePage($event)"></pagination-controls>
+              <notfound *ngIf="listArr?.length==0"></notfound>
+              <!-- <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+                (scrolled)="onScroll()"></div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

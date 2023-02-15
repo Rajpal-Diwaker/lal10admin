@@ -1,0 +1,118 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <form [formGroup]="myForm">
+      <div class="row">
+        <div class="col-md-6 col-xs-6">
+          <div class="sort_filter_wrap">
+            <h3>Business Details</h3>
+          </div>
+        </div>
+        <div class="col-md-6 col-xs-6" [hidden]="editFlag">
+          <div class="sort_filter_wrap edit_detail_wrap" *ngIf="adminId === '1'">
+            <button type="submit" (click)=edit(true); class="button is-link">Edit </button>
+          </div>
+        </div>
+      </div>
+      <div class="row input_form_wrap">
+        <div class="col-md-6">
+          <div class="form-group field">
+            <label class="label">Company Email ID</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Company Email" formControlName="companyEmail">
+            </div>
+            <div *ngIf="f.companyEmail.errors && f.companyEmail.touched" class="invalid">
+              <div *ngIf="f.companyEmail.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+              <div *ngIf="f.companyEmail.errors.email">
+                <p style="color: red;">Invalid email</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group field">
+            <label class="label">Company Contact No.</label>
+            <div class="control">
+              <input class="input" type="text" numberonly formControlName="companyNumber" placeholder="Company Contact No.">
+            </div>
+            <div *ngIf="f.companyNumber.errors && f.companyNumber.touched" class="invalid">
+              <div *ngIf="f.companyNumber.errors.required">
+                <p style="color: red;">Number is required</p>
+              </div>
+              <div *ngIf="f.companyNumber.errors.minlength">
+                <p style="color: red;">Minimum length is {{f.companyNumber.errors.minlength.requiredLength}}</p>
+              </div>
+              <div *ngIf="f.companyNumber.errors.maxlength">
+                <p style="color: red;">Maximum length is {{f.companyNumber.errors.maxlength.requiredLength}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group field">
+            <label class="label">Company Address</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Company Address" formControlName="companyAddress">
+            </div>
+            <div *ngIf="f.companyAddress.errors && f.companyAddress.touched" class="invalid">
+              <div *ngIf="f.companyAddress.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="sectionDivider"></div>
+        </div>
+        <div class="col-md-12">
+          <div class="sort_filter_wrap">
+            <h3>Manage Links</h3>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group field">
+            <label class="label">Instagram</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Instagram link" formControlName="instagram">
+            </div>
+            <div *ngIf="f.instagram.errors && f.instagram.touched" class="invalid">
+              <div *ngIf="f.instagram.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+              <div *ngIf="f.instagram.errors.pattern">
+                <p style="color: red;">Not a valid url</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group field">
+            <label class="label">Facebook</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Facebook link" formControlName="facebook">
+            </div>
+            <div *ngIf="f.facebook.errors && f.facebook.touched" class="invalid">
+              <div *ngIf="f.facebook.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+              <div *ngIf="f.facebook.errors.pattern">
+                <p style="color: red;">Not a valid url</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 field  is-grouped" [hidden]="!editFlag">
+          <div class="control">
+            <button type="submit" (click)="submit(myForm.value)" class="button is-link">Submit</button>
+          </div>
+          <div class="control">
+            <button class="button is-link is-light" (click)="edit(false)">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="column sider_wrap_cms">
+  <aside class="menu">
+    <div class="menu-list">
+      <a id="a1" (click)="active($event, 1, '/cms')" [ngClass]="{ 'is-active': activeObj['update_content']==true}">Update Content</a>
+      <a id="a1" (click)="active($event, 1, '/cms/updateClient')" [ngClass]="{ 'is-active': activeObj['update_my_client']==true}">Update My Brands</a>
+      <!-- <tr><td><a id="a2" (click)="active($event, 2)">Update My Clients</a></td></tr> -->
+      <a id="a3" (click)="active($event, 3, '/cms/testimonials')" [ngClass]="{ 'is-active': activeObj['testimonials'] == true }">Update Testimonials</a>
+      <a id="a4" (click)="active($event, 4, '/cms/faqs')" [ngClass]="{ 'is-active': activeObj['faqs'] == true }">Update FAQs</a>
+     <!-- <a id="a5" (click)="active($event, 5, '/cms/patch-message')" [ngClass]="{ 'is-active': activeObj['patch_message'] == true }">Add Patch Message</a> -->
+      <a id="a6" (click)="active($event, 6, '/cms/banner')" [ngClass]="{ 'is-active': activeObj['banner'] == true }">Add Banner</a>
+      <!-- <a id="a7" (click)="active($event, 7, '/cms/usp')" [ngClass]="{ 'is-active': activeObj['usp'] == true }">USP</a> -->
+      <a id="a8" (click)="active($event, 8, '/cms/manage-industries')" [ngClass]="{ 'is-active': activeObj['manage_industries'] == true}">Manage Service sector</a>
+      <a id="a9" (click)="active($event, 9, '/cms/infographics')" [ngClass]="{ 'is-active': activeObj['infographics'] == true}">Update Infographics</a>
+      <!-- <a id="a8" (click)="active($event, 8, '/cms/Update-Infographics')" [ngClass]="{ 'is-active': activeObj['Update-Infographics'] == true}">Update Infographics</a> -->
+      <!-- 13 oct 2020 adding  -->
+      <!-- <a id="a9" (click)="active($event, 9, '/cms/Catalogue')" [ngClass]="{ 'is-active': activeObj['Catalogue'] == true}">Update Catalogue</a> -->
+      <a id="a9" (click)="active($event, 9, '/cms/Careers')" [ngClass]="{ 'is-active': activeObj['Careers'] == true}">Update Careers</a>
+      <!-- <a id="a9" (click)="active($event, 9, '/cms/team')" [ngClass]="{ 'is-active': activeObj['team'] == true}">Update team</a> -->
+      <a id="a9" (click)="active($event, 9, '/cms/returnPolicy')" [ngClass]="{ 'is-active': activeObj['returnPolicy'] == true}">Update Return & Refund Policy</a>
+      <a id="a9" (click)="active($event, 9, '/cms/privacypolicy')" [ngClass]="{ 'is-active': activeObj['privacypolicy'] == true}">Update Privacy policy</a>
+      <a id="a9" (click)="active($event, 9, '/cms/blogs')" [ngClass]="{ 'is-active': activeObj['blogs'] == true}">Update Blogs</a>
+
+
+    </div>
+  </aside>
+</div>
+
+<!-- 1.Catalogue
+2.Careers
+3.blogs
+5.team [about us  mai team section pending] [done]
+6.returnPolicy
+7.privacypolicy
+
+
+
+ -->

@@ -1,0 +1,128 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <div class="sort_filter_wrap">
+      <div class="heading_divwr">
+        <div class="screen_heading">
+          <h3>Manage Listing</h3>
+        </div>
+        <div>
+          <div class="btnflex">
+            <a [routerLink]="'/options/add'" class="whitebtns_style" [queryParams]="{key:currentLi}">
+              <i aria-hidden="true" class="fa fa-plus-circle"></i>  {{addButtonText}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="tab_data_wapper">
+          <div class="tabbable-panel">
+            <div class="tabbable-line">
+              <ul class="nav nav-tabs options">
+                <li class="active" (click)="setActive(1)">
+                  <a href="#tab_default_1" data-toggle="tab">
+                    Crafts </a>
+                </li>
+                <li (click)="setActive(2)">
+                  <a href="#tab_default_2" data-toggle="tab">
+                    Material </a>
+                </li>
+                <li (click)="setActive(3)">
+                  <a href="#tab_default_3" data-toggle="tab">
+                    State </a>
+                </li>
+                <li (click)="setActive(4)">
+                  <a href="#tab_default_4" data-toggle="tab">
+                    Products </a>
+                </li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active" id="tab_default_1">
+                  <div class="row">
+                    <div class="col-md-4 col-lg-3 col-sm-4" *ngFor="let item of listArr;">
+                      <div class="card_wrap">
+                        <div class="crafts_card_wrap">
+                          <div class="edit_delete">
+                            <a class="pointer"> <i class="fa fa-pencil" (click)="edit(item.id)" aria-hidden="true"></i>
+                            </a>
+                            <a class="pointer" class="delete_icon" (click)="delete(item.id)"> <i class="fa fa-trash"
+                                aria-hidden="true"></i> </a>
+                          </div>
+                          <img (error)="def($event, item.id)" src="{{item.image}}">
+                        </div>
+                        <h2>{{ item.name | titlecase }}</h2>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="tab-pane" id="tab_default_2">
+                  <div class="row">
+
+                    <div class="col-md-4 col-lg-3 col-sm-4" *ngFor="let item of listArr;">
+                      <div class="card_wrap">
+                        <div class="crafts_card_wrap">
+                          <div class="edit_delete">
+                            <a class="pointer"> <i class="fa fa-pencil" (click)="edit(item.id)" aria-hidden="true"></i>
+                            </a>
+                            <a class="pointer" class="delete_icon" (click)="delete(item.id)"> <i class="fa fa-trash"
+                                aria-hidden="true"></i> </a>
+                          </div>
+                          <img (error)="def($event, item.id)" src="{{item.image}}">
+                        </div>
+                        <h2>{{ item.name | titlecase }}</h2>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="tab-pane" id="tab_default_3">
+                  <div class="row">
+
+                    <div class="col-md-4 col-lg-3 col-sm-4" *ngFor="let item of listArr;">
+                      <div class="card_wrap">
+                        <div class="crafts_card_wrap">
+                          <div class="edit_delete">
+                            <a class="pointer"> <i class="fa fa-pencil" (click)="edit(item.id)" aria-hidden="true"></i>
+                            </a>
+                            <a class="pointer" class="delete_icon" (click)="delete(item.id)"> <i class="fa fa-trash"
+                                aria-hidden="true"></i> </a>
+                          </div>
+                          <img (error)="def($event, item.id)" src="{{item.image}}">
+                        </div>
+                        <h2>{{ item.name | titlecase }}</h2>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="tab-pane" id="tab_default_4">
+                  <div class="row">
+                    <div class="col-md-4 col-lg-3 col-sm-4" *ngFor="let item of listArr;">
+                      <div class="card_wrap">
+                        <div class="crafts_card_wrap">
+                          <div class="edit_delete">
+                            <a class="pointer"> <i class="fa fa-pencil" (click)="edit(item.id)" aria-hidden="true"></i>
+                            </a>
+                            <a class="pointer" class="delete_icon" (click)="delete(item.id)"> <i class="fa fa-trash"
+                                aria-hidden="true"></i> </a>
+                          </div>
+                          <img (error)="def($event, item.id)" src="{{item.image}}">
+                        </div>
+                        <h2>{{ item.name | titlecase }}</h2>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <notfound *ngIf="listArr?.length==0"></notfound>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>  

@@ -1,0 +1,145 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <form [formGroup]='formgroup'>
+      <div class="sort_filter_wrap">
+        <div class="heading_divwr">
+          <div class="screen_heading">
+            <h3>{{editFlag?'Edit Group':'Add Group'}}</h3>
+          </div>
+          <div>
+            <div class="btnflex">
+              <div >
+                <div class="input_wrap_search">
+                  <i aria-hidden="true" class="fa fa-search"></i>
+                  <input class="form-control" [(ngModel)]="searchKeyWord" [ngModelOptions]="{standalone: true}" (keyup)=search($event.target.value) placeholder="Search">
+                </div>
+              </div>
+              <input formControlName="groupName" class="whitebtns_style" placeholder="Enter Group Name">
+              <a (click)="submit()" class="whitebtns_style">{{editFlag?'Edit Group':'Create Group'}}</a>
+            </div>
+            <div *ngIf=" submitted && f.groupName.errors" class="invalid text-right">
+              <div>
+                <p style="color: red;">Group name is required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="animated fadeIn">
+
+
+        <!--filter start here  -->
+        <div class="product_filter_wrap">
+          <div class="row productheaderwr">
+            <!-- <div class="col-md-3 col-sm-6 col-xs-12 brrt">
+              <div class="prhrinr">
+                <label>Uploaded By :</label>
+                <div class="common_input_warp">
+                  <select class="form-control" >
+                    <option>Uploaded by:</option>
+                    <option value='1'>Admin</option>
+                  </select>
+                </div>
+              </div>
+            </div> -->
+            <div class="col-md-3 col-sm-6 col-xs-12 brrt">
+              <div class="prhrinr">
+                <label>Price Range :</label>
+                <ngx-slider [(value)]="value" [options]="options" (userChangeEnd)="dataChanged($event.value, 'price')">
+                </ngx-slider>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12 brrt">
+              <div class="prhrinr ">
+                <div class="custom_radio company_country">
+                  <input type="radio" value='1' [(ngModel)]="liveFilter" (ngModelChange)="dataChanged($event, 'live')" [ngModelOptions]="{standalone: true}"
+                    name="liveFilter" id="featured-1"><label for="featured-1">Live
+                    Products</label>
+                  <input type="radio" value='0' [(ngModel)]="liveFilter" (ngModelChange)="dataChanged($event, 'live')"  [ngModelOptions]="{standalone: true}"
+                    name="liveFilter" id="featured-2"><label for="featured-2">Non-Live Products</label>
+                </div>
+                <div id="company_country-error"></div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <div class="button_download_wrap prhrinr">
+                <!-- <input class="form-control" placeholder="Search" (keyup)="search($event)"> -->
+                <a  class="btns_style" (click)="reset()">Reset Filter</a>
+                <!-- <div class="sde-btn">
+                  <a [routerLink]="'/products/add'">Add Product</a>
+                </div>
+                <div class="sde-btn">
+                  <a [routerLink]="'/products/group'">Manage Group</a>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- filter end here -->
+
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="main-wrapper">
+              <div class="user_detail">
+                <div class="table-responsive ">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th *ngFor="let item of listHeaders; let i=index">
+                          <abbr title="{{item}}">{{item}}</abbr>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody formArrayName="table">
+                      <tr [formGroupName]="j"
+                        *ngFor="let item of formgroup['controls'].table['controls']
+                        | paginate: { itemsPerPage: 10, currentPage: page,totalItems:total }; let j = index;">
+                        <td width="120">
+                          <figure class="tdimg">
+                            <img (error)="def($event, item.id)" src="{{formgroup.get('table')?.value[j]?.image?.image}}">
+                          </figure>
+                        </td>
+                        <td>
+                          {{formgroup.get('table').value[j]?.name}}
+                        </td>
+                        <td>
+                          {{formgroup.get('table').value[j]?.amount}}
+                        </td>
+                        <td>
+                          {{formgroup.get('table').value[j]?.inventoryQty || '----'}}
+                        </td>
+                        <td>
+                          {{(formgroup.get('table').value[j]?.material) || '--'}}
+                        </td>
+                        <td>
+                          {{(formgroup.get('table').value[j]?.roleName) || '--'}}
+                        </td>
+                        <td>
+                          <div class="field">
+                            <input id="{{'switchRoundedSuccess'+j}}" formControlName='check' type="checkbox"
+                              name="switchRoundedSuccess" class="switch is-rounded is-success" checked=true>
+                            <!-- [checked]="formgroup.get('table').value[j]?.check" -->
+                            <label for="{{'switchRoundedSuccess'+j}}"></label>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+
+                </div>
+                <pagination-controls class="custompaginations" (pageChange)="changePage($event)"></pagination-controls>
+                <notfound *ngIf="listArr?.length==0"></notfound>
+                <!-- <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+                (scrolled)="onScroll()"></div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </form>
+  </div>
+</div>

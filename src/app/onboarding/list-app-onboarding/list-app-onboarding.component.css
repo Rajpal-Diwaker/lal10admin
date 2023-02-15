@@ -1,0 +1,13 @@
+.dragdiv{
+    display: flex;
+    align-items: center;
+}
+.dragupdown{
+    display: flex;
+    flex-direction: column;
+    margin-left:10px;
+}
+.dragupdown i{
+    font-size:20px;
+    cursor: pointer;
+}

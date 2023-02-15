@@ -1,0 +1,281 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <form [formGroup]="productsGrp" (ngSubmit)="submit()">
+      <div class="sort_filter_wrap">
+        <h3>{{!editId?'Add Product':'Edit Product'}}</h3>
+      </div>
+      <div class="field">
+        <div id="education_fields clearfix">
+          <div class="project_photo" formArrayName="images"
+            *ngFor="let item of productsGrp.get('images')?.controls; let i = index;">
+            <ng-container [formGroupName]="i">
+              <label class=newbtn>
+                <ng-container *ngIf="imageSrc[i]; else elseTemplate">
+                  <img id="blah" src="{{ imageSrc[i].image? imageSrc[i].image: 'assets/images/camera_images.png' }}" onError=""
+                  (click)="showImage(imageSrc[i].image)">
+                  <i class="fa fa-trash" aria-hidden="true" (click)="deleteImages(i, item.value.image)" *ngIf="imageSrc.length > 1"></i>
+                </ng-container>
+                <ng-template #elseTemplate>
+                  <label for="pic{{i}}">
+                    <img id="blah" src="assets/images/camera_images.png" onError="">
+                  </label>
+                </ng-template>
+
+              </label>
+              <input id="pic{{i}}" (change)=changeImage(item)  class='pis'
+                  (change)="readURL($event, i)" accept="image/*" type="file">
+            </ng-container>
+          </div>
+        </div>
+        <div class="addmore_btn">
+          <button class="whitebtns_style" type="button" (click)="addMoreImages()">
+            <i class="fa fa-plus" aria-hidden="true"></i> Add More</button>
+        </div>
+      </div>
+      <div class="row input_form_wrap">
+        <div class="col-md-6">
+          <div class="form-group field">
+            <label class="label">Name</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Name" formControlName="name">
+            </div>
+            <div *ngIf="f.name.errors && f.name.touched" class="invalid">
+              <div *ngIf="f.name.errors.required">
+                <p style="color: red;">Name is required</p>
+              </div>
+              <div *ngIf="f.name.errors.pattern">
+                <p style="color: red;">Only albhabets is allowed</p>
+              </div>
+              <div *ngIf="f.name.errors.maxlength">
+                <p style="color: red;">Limit is of {{f.name.errors.maxlength.requiredLength}} characters</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group field">
+            <label class="label">Category Name</label>
+            <div class="control">
+              <div class="select">
+                <select  (change)=getCatId($event.target.value) formControlName="categoryId">
+                  <option value=''>Select category</option>
+                  <option *ngFor="let item of categoryList" value='{{item.id}}'>{{item.title}}</option>
+                </select>
+              </div>
+            </div>
+            <div *ngIf="f.categoryId.errors && f.categoryId.touched" class="invalid">
+              <div *ngIf="f.categoryId.errors.required">
+                <p style="color: red;">Category is required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group field">
+            <label class="label">Price</label>
+            <div class="control">
+              <input class="input" numberonly type="text" placeholder="Price" formControlName="amount">
+            </div>
+            <div *ngIf="f.amount.errors && f.amount.touched" class="invalid">
+              <div *ngIf="f.amount.errors.required">
+                <p style="color: red;">Price is required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group field">
+            <label class="label">Sub-Category Name</label>
+            <div class="control">
+              <div class="select">
+                <select formControlName="subcategoryId"  (change)=getSUBSUBCatId($event.target.value)>
+                  <option value=''>Select Sub-category</option>
+                  <option *ngFor="let item of getSubcategory" value='{{item.id}}'>{{item.title}}</option>
+                </select>
+              </div>
+            </div>
+            <div *ngIf="f.subcategoryId.errors && f.subcategoryId.touched" class="invalid">
+              <div *ngIf="f.subcategoryId.errors.required">
+                <p style="color: red;">Sub-Category is required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="col-md-6">
+          <div class="form-group field">
+            <label class="label">Inventory QTY</label>
+            <div class="control has-icons-left has-icons-right">
+              <input class="input" numberonly type="text" placeholder="Inventory qty" formControlName="inventoryQty">
+            </div>
+            <div *ngIf="f.inventoryQty.errors && f.inventoryQty.touched" class="invalid">
+              <div *ngIf="f.inventoryQty.errors.required">
+                <p style="color: red;">Inventory Qty is required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group field">
+            <label class="label">Sub-Sub-Category Name</label>
+            <div class="control">
+              <div class="select">
+                <select formControlName="subsubcategoryId">
+                  <option value=''>Select Sub-category</option>
+                  <option *ngFor="let item of getSubSubcategory" value='{{item.id}}'>{{item.title}}</option>
+                </select>
+              </div>
+            </div>
+            <div *ngIf="f.subsubcategoryId.errors && f.subsubcategoryId.touched" class="invalid">
+              <div *ngIf="f.subsubcategoryId.errors.required">
+                <p style="color: red;">Sub-Sub-Category is required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group field">
+            <label class="label">Doable QTY</label>
+            <div class="control has-icons-left has-icons-right">
+              <input class="input is-success" numberonly type="text" placeholder="doable qty"
+                formControlName="doableQty">
+            </div>
+            <div *ngIf="f.doableQty.errors && f.doableQty.touched" class="invalid">
+              <div *ngIf="f.doableQty.errors.required">
+                <p style="color: red;">Doable Qty is required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group field">
+            <label class="label">State</label>
+            <div class="control">
+              <!-- <div class="select">
+                <select (change)="getCraft(f.pstateId.value)" formControlName="pstateId">
+                  <option value=''>Select State</option>
+                  <option *ngFor="let item of stateListArr" value='{{item.id}}'>{{item.name}}</option>
+                </select>
+              </div> -->
+              <ng-select
+                [items]="stateListArr"
+                [placeholder]="'Select State'"
+                [clearable]="false"
+                bindLabel="name"
+                bindValue="id"
+                (change)="getCraft($event.id)" formControlName="pstateId">
+              </ng-select>
+            </div>
+            <div *ngIf="f.pstateId.errors && f.pstateId.touched" class="invalid">
+              <div *ngIf="f.pstateId.errors.required">
+                <p style="color: red;">State is required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group field">
+            <label class="label">Craft</label>
+            <div class="control">
+              <!-- <div class="select">
+                <select (change)="getMaterial(f.craft.value)" formControlName="craft">
+                  <option value=''>Select Craft</option>
+                  <option *ngFor="let item of craftArr" value='{{item.id}}'>{{item.name}}</option>
+                </select>
+              </div> -->
+              <ng-select
+                [items]="craftArr"
+                [placeholder]="'Select Craft'"
+                [clearable]="false"
+                bindLabel="name"
+                bindValue="id"
+                (change)="getMaterial($event.id)" formControlName="craft">
+              </ng-select>
+            </div>
+            <div *ngIf="f.craft.errors && f.craft.touched" class="invalid">
+              <div *ngIf="f.craft.errors.required">
+                <p style="color: red;">Craft is required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group field">
+            <label class="label">Material Used</label>
+            <div class="control has-icons-left has-icons-right">
+              <!-- <input class="input is-success" type="text" placeholder="material used" formControlName="material"> -->
+              <!-- <div class="select">
+                <select formControlName="material">
+                  <option value=''>Select Material</option>
+                  <option *ngFor="let item of materialList" value='{{item.id}}'>{{item.name}}</option>
+                </select>
+              </div> -->
+              <ng-select
+                [items]="materialList"
+                [placeholder]="'Select Material'"
+                [clearable]="false"
+                bindLabel="name"
+                bindValue="id"
+                formControlName="material">
+              </ng-select>
+            </div>
+            <div *ngIf="f.material.errors && f.material.touched" class="invalid">
+              <div *ngIf="f.material.errors.required">
+                <p style="color: red;">Material is required</p>
+              </div>
+              <div *ngIf="f.material.errors.maxlength">
+                <p style="color: red;">Limit is of {{f.material.errors.maxlength.requiredLength}} characters</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group field">
+            <label class="label">Search Tags</label>
+            <div class="control has-icons-left has-icons-right">
+              <input class="input is-success" type="text" placeholder="search tags" formControlName="searchTags">
+            </div>
+            <div *ngIf="f.searchTags.errors && f.searchTags.touched" class="invalid">
+              <div *ngIf="f.searchTags.errors.required">
+                <p style="color: red;">Search Tag is required</p>
+              </div>
+              <div *ngIf="f.searchTags.errors.maxlength">
+                <p style="color: red;">Limit is of {{f.searchTags.errors.maxlength.requiredLength}} characters</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group field">
+            <label class="label">Description</label>
+            <!-- <div class="control has-icons-left has-icons-right"> -->
+              <!-- <input class="input is-success" type="text" placeholder="description" formControlName="description"> -->
+              <!-- <textarea name="" id="" cols="30" rows="10" formControlName="description"></textarea> -->
+              <quill-editor [style]="editorStyle" [modules]="modules" formControlName="description"></quill-editor>
+            <!-- </div> -->
+            <div *ngIf="f.description.errors && f.description.touched" class="invalid">
+              <div *ngIf="f.description.errors.required">
+                <p style="color: red;">Description is required</p>
+              </div>
+              <div *ngIf="f.description.errors.maxlength">
+                <p style="color: red;">Limit is of {{f.description.errors.maxlength.requiredLength}} characters</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 field  is-grouped">
+          <div class="control">
+            <button type="submit" class="button is-link">Submit</button>
+          </div>
+          <div class="control">
+            <button class="button is-link is-light" [routerLink]="'/products'">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

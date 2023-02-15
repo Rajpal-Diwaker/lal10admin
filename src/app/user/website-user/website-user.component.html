@@ -1,0 +1,85 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <div class="sort_filter_wrap">
+      <div class="heading_divwr">
+        <div class="screen_heading">
+          <h3>Users</h3>
+        </div>
+        <div class="responsive_slelect">
+          <div class="btnflex">
+            <div class="input_wrap_search input_wrap_search_responsive">
+              <input class="form-control" placeholder="Search" (keyup)="search($event.target.value)">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </div>
+            <div class="select">
+              <select (change)="filter($event.target.value,'typeofstore')">
+                <option>Type of Store</option>
+                <option *ngFor="let item of typeofstoreList; let i=index" [value]='item?.name'>{{item?.name}}</option>
+              </select>
+            </div>
+            <div class="select">
+              <select (change)="filter($event.target.value,'category')">
+                <option>Product Category</option>
+                <option *ngFor="let item of productList; let i=index" [value]='item?.id'>{{item?.name}}</option>
+              </select>
+            </div>
+            <div class="select">
+              <select (change)="filter($event.target.value,'important')">
+                <option value="">Important to customer</option>
+                <option *ngFor="let item of importantForCustomer; let i=index" [value]='item?.type'>{{item?.type}}</option>
+              </select>
+            </div>
+            <div>
+              <a (click)="reset()" class="btns_style"> Reset Filter</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="animated fadeIn">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <div class="main-wrapper">
+            <div class="user_detail">
+              <div class="table-responsive ">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th *ngFor="let item of listHeaders; let i=index">
+                        <abbr title="{{item}}">{{item}}</abbr>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="pointer" *ngFor="let item of listArr">
+                      <td>
+                        {{item?.artisanName}}
+                      </td>
+                      <td>{{item?.mobile}}</td>
+                      <td>{{item?.email}}</td>
+                      <td><a> <i [routerLink]="[ '/userDetail' ]" [queryParams]="{id:item?.userId}"
+                            class="fa fa-eye"></i></a></td>
+                      <td>
+                        <div class="field">
+                          <input id="{{'switchRoundedSuccess'+i}}" type="checkbox" name="switchRoundedSuccess"
+                            (change)="changeStatus(i,$event.target.checked, item.userId)"
+                            class="switch is-rounded is-success" [checked]="item.isActive">
+                          <label for="{{'switchRoundedSuccess'+i}}"></label>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <notfound *ngIf="listArr?.length==0"></notfound>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

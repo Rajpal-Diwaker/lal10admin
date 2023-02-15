@@ -1,0 +1,99 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <div class="sort_filter_wrap">
+      <div class="heading_divwr">
+        <h3>Website Orders</h3>
+        <div class="btnflex">
+          <!-- <div class="input_wrap_search input_wrap_search_responsive">
+            <i class="fa fa-search" aria-hidden="true"></i>
+            <input class="form-control" placeholder="Search" [(ngModel)]="searchKeyWord" (keyup)="search()">
+          </div> -->
+          <!-- <button type="button" (click)="downloadSample()" class="whitebtns_style"><i class="fa fa-download"
+              aria-hidden="true"></i> Download Sample</button> -->
+          <button type="button" (click)="download()" class="whitebtns_style"><i class="fa fa-download"
+              aria-hidden="true"></i> Download CSV</button>
+          <!-- <input type="file" accept=".csv" style="display: none;" id="import" (change)="import($event)">
+          <label for="import" class="whitebtns_style"><i class="fa fa-download" aria-hidden="true"></i> Import
+            Artisan</label> -->
+          <!-- <a [routerLink]="'/artisan/add'" class="whitebtns_style"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+            Add Artisan
+          </a> -->
+          <!-- <a [routerLink]="'/artisan/groupList'" class="whitebtns_style"><i class="fa fa-users" aria-hidden="true"></i>
+            Manage Group</a> -->
+          <!-- <div class="select">
+            <select>
+              <option>Filter By</option>
+              <option>Option:1</option>
+              <option>Option:2</option>
+              <option>Option:3</option>
+            </select>
+          </div> -->
+        </div>
+      </div>
+    </div>
+    <div class="animated fadeIn">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <div class="main-wrapper">
+            <div class="user_detail">
+              <div class="table-responsive ">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th *ngFor="let item of listHeaders; let i=index">
+                        <div class="sortorderwr">
+                          <abbr title="{{item}}">{{item}}</abbr>
+                          <div *ngIf="item==='Artisans Name'|| item==='Total Enquiry'||item==='Total Orders' ">
+                            <span (click)="sort('asc',item)" class="sortorder"><img src="assets/images/sort_a.png"
+                                alt=""></span>
+                            <span (click)="sort('desc',item)" class="sortorder"><img src="assets/images/sort_z.png"
+                                alt=""></span>
+                          </div>
+                        </div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let item of listArr | paginate: { itemsPerPage: 10, currentPage: page,totalItems:total }; let i=index">
+                      <td width="120">
+                        <figure class="tdimg">
+                          <img (error)="def($event, item.id)" src="{{item.image}}">
+                        </figure>
+                      </td>
+                      <td>
+                        {{item?.uniqueId}}
+                      </td>
+                      <td>{{item?.productName}}</td>
+                      <td>{{item.orderUserName||"--"}}</td>
+                      <td>{{(item?.expPrice) || '--'}}</td>
+                      <td>{{item?.created_at|date}}</td>
+                      <td>
+                        <button type="button"  (click)="generateInvoice(item)" class="whitebtns_style"><i
+                            aria-hidden="true"></i>Generate Invoice</button>
+                      </td>
+                      <td><a class="pointer"> <i class="fa fa-pencil" (click)="edit(item)" aria-hidden="true"></i>
+                        </a>
+                        &nbsp;
+                        <!-- <a class="pointer"> <i style="color: red;" class="fa fa-trash" (click)="delete(item.userId)"
+                            aria-hidden="true"></i></a> -->
+                      </td>
+
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <pagination-controls class="custompaginations" (pageChange)="changePage($event)"></pagination-controls>
+              <notfound *ngIf="listArr?.length==0"></notfound>
+              <!-- <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
+                (scrolled)="onScroll()"></div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

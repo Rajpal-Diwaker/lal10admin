@@ -1,0 +1,112 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <div class="animated fadeIn" [formGroup]="myForm">
+      <div>
+        <div>
+          <div class="enquary_heading_title">
+            <h3>Order Details</h3>
+            <span>Enquiry ID : <span>{{f.enquiryId.value}}</span></span>
+          </div>
+        </div>
+        <div class="commom_form_input">
+          <div class="row input_form_wrap">
+            <div class="col-md-12">
+              <div class="field">
+                <div id="education_fields clearfix">
+                  <div class="project_photo" formArrayName="images"
+                    *ngFor="let item of myForm.get('images')?.controls; let i = index;">
+                    <ng-container [formGroupName]="i">
+                      <label class=newbtn>
+                        <ng-container *ngIf="imageSrc[i]; else elseTemplate">
+                          <img id="blah" (click)="showImage(imageSrc[i])" src="{{ imageSrc[i]? imageSrc[i]: 'assets/images/camera_images.png' }}"
+                            onError="this.src='assets/images/def.png';">
+                          <!-- <i class="fa fa-trash" aria-hidden="true"></i> -->
+                        </ng-container>
+                        <ng-template #elseTemplate>
+                          <img id="blah" src="assets/images/camera_images.png"
+                            onError="this.src='assets/images/def.png';">
+                        </ng-template>
+                        <!-- <input id="pic" (change)=changeImage(item) formControlName="image" class='pis'
+                          (change)="readURL($event, i)" accept="image/*" type="file"> -->
+                      </label>
+                    </ng-container>
+                  </div>
+                </div>
+                <!-- <div class="addmore_btn">
+                  <button class="whitebtns_style" type="button" (click)="addMoreImages()">
+                    <i class="fa fa-plus" aria-hidden="true"></i> Add Image</button>
+                </div> -->
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Title :</label>
+                <input readonly class="form-control" formControlName="title" placeholder="Title" type="name">
+                <div *ngIf=" submitted && f.title.errors" class="invalid">
+                  <div *ngIf="f.title.errors.required">
+                    <p style="color: red;">Required</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Description :</label>
+                <input readonly class="form-control" formControlName="description" placeholder="Description"
+                  type="name">
+                <div *ngIf="submitted &&  f.description.errors " class="invalid">
+                  <div *ngIf="f.description.errors.required">
+                    <p style="color: red;">Required</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group field">
+                <label>Choose Crafts :</label>
+                <input readonly class="form-control" formControlName="craft" placeholder="Description" type="name">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group field">
+                <label>Choose Material :</label>
+                 <input readonly class="form-control" formControlName="material" placeholder="Description" type="name">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group field">
+                <label>Update Status</label>
+                <div class="control  has-icons-right">
+                  <div class="select">
+                    <select [disabled]="!editable" class="form-control" formControlName="update_status">
+
+                      <option value="">Enquiry forwared to artisan</option>
+                      <option value="Enquiry converted to order">Enquiry converted to order</option>
+                      <option value="Order confirmed">Order confirmed</option>
+                      <option value="Order dispatch">Order dispatch</option>
+                      <option value="Order delivered">Order delivered</option>
+                    </select>
+                  </div>
+                </div>
+                <div *ngIf="submitted &&  f.update_status.errors " class="invalid">
+                  <div *ngIf="f.update_status.errors.required">
+                    <p style="color: red;">Required</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <div class="form-group">
+                <button (click)="submit(myForm.value)">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

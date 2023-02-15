@@ -1,0 +1,99 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <form [formGroup]="artisanGrp" (ngSubmit)="submit(artisanGrp.value)">
+      <h3 class="title">Add New Story</h3>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="file is-boxed">
+            <label class="file-label">
+              <input class="file-input" (change)="fileUpload($event, 'kycImage')" type="file" accept="image/*"
+                name="resume">
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fa fa-upload"></i>
+                </span>
+                <span class="file-label">
+                  Image
+                </span>
+              </span>
+            </label>
+            <figure *ngIf="previewObj['kycImage']" class="image is-128x128">
+              <img (click)="showImage(previewObj['kycImage'])" src="{{previewObj['kycImage']}}">
+            </figure>
+          </div>
+        </div>
+      </div>
+      <div class="row input_form_wrap">
+        <div class="field col-sm-6">
+          <label class="label"> Title</label>
+          <div class="control">
+            <input class="input" type="text" maxlength="60" placeholder="title" formControlName="title">
+            <div *ngIf="f.title.errors && f.title.touched" class="invalid">
+              <div *ngIf="f.title.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Sub-Title</label>
+          <div class="control">
+            <input class="input" type="text" maxlength="60" placeholder="sub-title" formControlName="subtitle">
+            <div *ngIf="f.subtitle.errors && f.subtitle.touched" class="invalid">
+              <div *ngIf="f.subtitle.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Name</label>
+          <div class="control">
+            <input class="input" type="text" maxlength="60" placeholder="name" formControlName="name">
+            <div *ngIf="f.name.errors && f.name.touched" class="invalid">
+              <div *ngIf="f.name.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label"> URL</label>
+          <div class="control">
+            <input class="input" type="text" maxlength="60" placeholder="Url" formControlName="url">
+            <div *ngIf="f.url.errors && f.url.touched" class="invalid">
+              <div *ngIf="f.url.errors.required">
+                <p style="color: red;">Url is required</p>
+              </div>
+              <div *ngIf="f.url.errors.pattern">
+                <p style="color: red;">Not a valid url</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Description</label>
+          <div class="control has-icons-left has-icons-right">
+            <textarea name="" id="" cols="30" rows="10"   placeholder="description" formControlName="description"></textarea>
+            <!-- <input class="input " type="text" placeholder="description" > -->
+            <div *ngIf="f.description.errors && f.description.touched" class="invalid">
+              <div *ngIf="f.description.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field is-grouped col-sm-12">
+          <div class="control">
+            <button type="submit" class="button is-link">Submit</button>
+          </div>
+          <div class="control">
+            <button class="button is-link is-light" [routerLink]="'/avenue'">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

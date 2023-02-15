@@ -1,0 +1,169 @@
+<app-sidebar></app-sidebar>
+
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+
+  <div class="content">
+    <div class="sort_filter_wrap">
+      <div class="heading_divwr">
+        <div class="screen_heading">
+         <h3> {{editFlag==false?'Add New':'Edit'}} {{key | titlecase}} </h3>
+        </div>
+      </div>
+    </div>
+    <form [formGroup]="manageListingGrp" (ngSubmit)="submit()">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="file is-boxed">
+            <label class="file-label">
+              <input class="file-input" (change)="fileUpload($event, 'image')" accept="image/*" type="file" name="resume">
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fa fa-upload"></i>
+                </span>
+                <span class="file-label">
+                  Attach Image
+                </span>
+              </span>
+            </label>
+            <figure *ngIf="previewObj['image']" class="image is-128x128">
+              <img (click)="showImage(previewObj['image'])" src="{{previewObj['image']}}">
+            </figure>
+          </div>
+          <div class="input_form_wrap">
+            <div class="field">
+              <div class="control">
+                <label class="label">Type</label>
+                <div class="select">
+                  <select formControlName="type" (change)="onTypeChange(f.type.value)"
+                  [attr.disabled]="''">
+                    <option value=''>Select</option>
+                    <option *ngFor="let item of types" value='{{ item }}'>{{ item }}</option>
+                  </select>
+
+                </div>
+              </div>
+              <div *ngIf="submitted && f.type.errors" class="invalid">
+                <div *ngIf="f.type.errors.required">
+                  <p style="color: red;">Type is required</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="field" *ngIf="key !== 'state'">
+              <div class="control">
+                <label class="label">State</label>
+                <div class="select">
+            <ng-multiselect-dropdown (onSelect)="getCraft($event,'ON')" formControlName="stateId" [placeholder]="'Select State'" [data]="stateListArr"
+              [settings]="stateSetting" (onDeSelect)="getCraft($event,'DE')" (onSelectAll)="getCraft($event,'ALL')" (onDeSelectAll)="getCraft($event,'DESELECTALL')">
+            </ng-multiselect-dropdown>
+
+                </div>
+              </div>
+              <div *ngIf="submitted && f.stateId.errors" class="invalid">
+                <div *ngIf="f.stateId.errors.required">
+                  <p style="color: red;">State is required</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="field" *ngIf="key !== 'state' && (key === 'material' || key === 'products')">
+              <div class="control">
+                <label class="label">Craft</label>
+                <div class="select">
+                  <ng-multiselect-dropdown (onSelect)="getMaterial($event,'ON')" formControlName="craftId" [placeholder]="'Select Craft'" [data]="craftListArr"
+              [settings]="craftSetting" (onSelectAll)="getMaterial($event,'ALL')" (onDeSelect)="getMaterial($event,'DE')" (onDeSelectAll)="getMaterial($event,'DESELECTALL')">
+            </ng-multiselect-dropdown>
+
+                </div>
+              </div>
+              <div *ngIf="submitted && f.craftId.errors" class="invalid">
+                <div *ngIf="f.craftId.errors.required">
+                  <p style="color: red;">Craft is required</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="field" *ngIf="key !== 'state' && key === 'products'">
+              <div class="control">
+                <label class="label">Material</label>
+                <div class="select">
+                  <ng-multiselect-dropdown formControlName="materialId" [placeholder]="'Select Material'" [data]="materailListArr"
+              [settings]="materialSetting" (onSelect)="materialSelect()" (onSelectAll)="materialSelect()" (onDeSelect)="materialSelect()"
+              (onDeSelectAll)="materialSelect()">
+            </ng-multiselect-dropdown>
+
+                </div>
+              </div>
+              <div *ngIf="submitted && f.materialId.errors" class="invalid">
+                <div *ngIf="f.materialId.errors.required">
+                  <p style="color: red;">Material is required</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">{{key | titlecase}} Name in English</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="Name" formControlName="name">
+
+              </div>
+              <div *ngIf="submitted && f.name.errors" class="invalid">
+                <div *ngIf="f.name.errors.required">
+                  <p style="color: red;">Required</p>
+                </div>
+              </div>
+            </div>
+
+              <div class="field">
+                <label class="label">{{key | titlecase}} Name in Hindi</label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Name" formControlName="hindiName">
+
+                </div>
+                <div *ngIf="submitted && f.hindiName.errors" class="invalid">
+                  <div *ngIf="f.hindiName.errors.required">
+                    <p style="color: red;">Required</p>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">{{key | titlecase}} Name in Bengali</label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Name" formControlName="bangaliName">
+
+                </div>
+                <div *ngIf="submitted && f.bangaliName.errors" class="invalid">
+                  <div *ngIf="f.bangaliName.errors.required">
+                    <p style="color: red;">Required</p>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">{{key | titlecase}} Name in Gujrati</label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Name" formControlName="gujratiName">
+
+                </div>
+                <div *ngIf="submitted && f.gujratiName.errors" class="invalid">
+                  <div *ngIf="f.gujratiName.errors.required">
+                    <p style="color: red;">Required</p>
+                  </div>
+                </div>
+              </div>
+
+
+            <div class="field is-grouped">
+              <div class="control">
+                <button type="submit" class="button is-link">Submit</button>
+              </div>
+              <div class="control">
+                <button class="button is-link is-light" [routerLink]="'/options'">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

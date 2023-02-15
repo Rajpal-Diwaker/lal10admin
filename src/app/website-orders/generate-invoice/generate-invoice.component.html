@@ -1,0 +1,158 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <form [formGroup]="myForm">
+      <h3 class="title">Generate Invoice</h3>
+      <div class="row input_form_wrap">
+        <div class="field col-sm-6">
+          <label class="label">Supplier</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Supplier" formControlName="supplier">
+            <div *ngIf="f.supplier.errors && f.supplier.touched" class="invalid">
+              <div *ngIf="f.supplier.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Ship To</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input " type="text" placeholder="Ship to" value="" formControlName="shipTo">
+            <div *ngIf="f.shipTo.errors && f.shipTo.touched" class="invalid">
+              <div *ngIf="f.shipTo.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Total QTY</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input is-success" numberonly type="text" placeholder="Total QTY" formControlName="totalQTY">
+            <div *ngIf="f.totalQTY.errors && f.totalQTY.touched" class="invalid">
+              <div *ngIf="f.totalQTY.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Product Name</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input is-success" type="text" placeholder="Product Name" formControlName="productName">
+            <div *ngIf="f.productName.errors && f.productName.touched" class="invalid">
+              <div *ngIf="f.productName.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Unit</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input is-success" type="text" placeholder="Unit" formControlName="unit">
+            <div *ngIf="f.unit.errors && f.unit.touched" class="invalid">
+              <div *ngIf="f.unit.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Rate</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input is-success" appTwoDigitDecimaNumber type="text" placeholder="Rate"
+              formControlName="rate">
+            <div *ngIf="f.rate.errors && f.rate.touched" class="invalid">
+              <div *ngIf="f.rate.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Tax</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input is-success" appTwoDigitDecimaNumber type="text" placeholder="Tax" formControlName="tax">
+            <div *ngIf="f.tax.errors && f.tax.touched" class="invalid">
+              <div *ngIf="f.tax.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Amount</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input is-success" appTwoDigitDecimaNumber type="text" placeholder="Amount"
+              formControlName="amount">
+            <div *ngIf="f.amount.errors && f.amount.touched" class="invalid">
+              <div *ngIf="f.amount.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Due Date</label>
+          <div class="control has-icons-left has-icons-right">
+            <!-- <input class="input is-success"  type="date" placeholder="Due Date" formControlName="dueDate"> -->
+            <input class="input is-success" placeholder="Due date" formControlName="dueDate" [min]="minDate" [matDatepicker]="dp3"
+              disabled>
+            <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+            <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+            <div *ngIf="f.dueDate.errors && f.dueDate.touched" class="invalid">
+              <div *ngIf="f.dueDate.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Sub Total</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input is-success" appTwoDigitDecimaNumber type="text" placeholder="Sub Total"
+              formControlName="subTotal">
+            <div *ngIf="f.subTotal.errors && f.subTotal.touched" class="invalid">
+              <div *ngIf="f.subTotal.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field col-sm-6">
+          <label class="label">Approved By</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input is-success" readonly type="text" placeholder="Approved By" formControlName="approvedBy">
+            <div *ngIf="f.approvedBy.errors && f.approvedBy.touched" class="invalid">
+              <div *ngIf="f.approvedBy.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Discount</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input is-success" appTwoDigitDecimaNumber type="text" placeholder="Discount"
+              formControlName="discount">
+            <div *ngIf="f.discount.errors && f.discount.touched" class="invalid">
+              <div *ngIf="f.discount.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field is-grouped col-sm-12">
+          <div class="control">
+            <button type="submit" (click)="submit(myForm.value)" class="button is-link">Generate</button>
+          </div>
+
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

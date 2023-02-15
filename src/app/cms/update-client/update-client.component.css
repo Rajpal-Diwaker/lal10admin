@@ -1,0 +1,39 @@
+.product_name h2{
+    font-size:18px;
+    text-align: center;
+    margin:0;
+}
+.product_name {
+    padding: 10px 0px;
+    display: inline-block;
+    width: 100%;
+    border-top: 1px solid #000;
+}
+.heading_div h3 {
+    font-size: 30px;
+}
+.subheading_div h3{
+    font-size:23px;
+}
+.marbt{
+    margin:10px 0px;
+}
+.attach_file label{
+    margin:0;
+}
+.publishbtn{
+    margin:0 auto;
+    min-width:320px;
+    display: table;
+    width:auto;
+    margin-top: 40px;
+    box-shadow: none;
+    border: 0;
+    margin-bottom: 40px;
+}
+.imagePrev {
+  margin-top: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

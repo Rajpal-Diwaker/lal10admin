@@ -1,0 +1,64 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <form [formGroup]="myForm">
+      <div class="row">
+        <div class="col-md-3">
+          <h3 class="title">Courier details</h3>
+        </div>
+        <div class="col-md-9" (click)="goToChat()">
+          <button class="btn btn-primary">Go To Chat</button>
+        </div>
+      </div>
+
+      <div class="row input_form_wrap">
+        <div class="field col-sm-6">
+          <label class="label">Logistic Carrier</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Logistic Carrier" formControlName="carrier">
+            <div *ngIf="f.carrier.errors && f.carrier.touched" class="invalid">
+              <div *ngIf="f.carrier.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Tracking Number</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input " type="text" placeholder="Tracking Number" value="" formControlName="trackingNo">
+            <div *ngIf="f.trackingNo.errors && f.trackingNo.touched" class="invalid">
+              <div *ngIf="f.trackingNo.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Number of boxes </label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input is-success" numberonly type="text" placeholder="Number of boxes" formControlName="boxes">
+            <div *ngIf="f.boxes.errors && f.boxes.touched" class="invalid">
+              <div *ngIf="f.boxes.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Payment Mode</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input is-success"  type="text" placeholder="Payment Mode"
+              formControlName="paymentMode">
+            <div *ngIf="f.paymentMode.errors && f.paymentMode.touched" class="invalid">
+              <div *ngIf="f.paymentMode.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,104 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <div class="sort_filter_wrap">
+      <div class="heading_divwr">
+        <div class="screen_heading">
+          <h3>Sign-up Onboarding Website</h3>
+        </div>
+        <div>
+          <div class="btnflex">
+            <a [routerLink]="'/onboarding/add'" class="whitebtns_style"><i aria-hidden="true"
+                class="fa fa-plus-circle"></i> Add Onboarding</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="wrapper">
+      <div class="contant_wrap">
+        <!-- Onborading Managementn Start Here  -->
+        <div class="row" [formGroup]='myForm'>
+          <div class="col-lg-9">
+            <div class="subheading_div">
+              <h4>Type of store do you have</h4>
+            </div>
+            <div class="row">
+              <div class="col-md-3 col-lg-3 col-sm-3" formArrayName="items"
+                *ngFor="let item of myForm.get('items')['controls']; let i = index;">
+                <div class="card_wrap_onboard" [formGroupName]="i">
+                  <div class="crafts_card_wrap">
+                    <div class="edit_delete">
+                      <label for="openFile"> <a> <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a></label>
+                      <input type="file" accept="image/*" id="openFile"
+                        (change)="edit(item.value,i);fileUpload($event,true)" style="display: none;">
+                      <a (click)="delete(item.value)" class="delete_icon"> <i class="fa fa-trash"
+                          aria-hidden="true"></i>
+                      </a>
+                    </div>
+                    <img (error)="def($event, item.icon)" [src]="myForm.get('items').value[i]?.icon">
+                  </div>
+                  <div class="product_name">
+                    <h2>{{myForm.get('items').value[i]?.name|titlecase}}</h2>
+                  </div>
+                </div>
+              </div>
+              <!--after input-->
+              <!-- <div class="col-md-3 col-lg-3 col-sm-3 afterimguploaddiv">
+              <div class="card_wrap_onboard">
+                <div class="crafts_card_wrap">
+                  <div class="edit_delete">
+                    <label for="openFile"> <a> <i class="fa fa-pencil" aria-hidden="true"></i>
+                      </a></label>
+                    <input type="file"  accept="image/*" id="openFile" (change)="edit(item.value,i)" style="display: none;">
+                    <a (click)="delete(item.value)" class="delete_icon"> <i class="fa fa-trash"
+                        aria-hidden="true"></i>
+                    </a>
+                  </div>
+                  <img (error)="def($event, item.icon)" [src]="myForm.get('items').value[i]?.icon">
+                </div>
+                <div class="product_name">
+                  <input type="text" placeholder="Enter here">
+                </div>
+              </div>
+            </div> -->
+              <!--after input-->
+            </div>
+            <div class="marbt">
+              <div class="row">
+                <div class="col-sm-2">
+                  <div class="attach_file">
+                    <input id="f02" type="file" accept="image/*" style="display:none;"
+                      (change)="fileUpload($event,false)" placeholder="Add profile picture" />
+                    <label for="f02" class="whitebtns_style"> <i class="fa fa-plus" aria-hidden="true"></i> Attach
+                      Image</label>
+                    <!-- <div *ngIf="f.name.errors && f.name.touched" class="invalid">
+                      <div *ngIf="f.name.errors.required">
+                        <p style="color: red;">Required</p>
+                      </div>
+                    </div> -->
+                    <input class="form-control" type="text" placeholder="Please enter Name" formControlName='name'>
+                    <div *ngIf="f.name.errors && f.name.touched" class="invalid">
+                      <div *ngIf="f.name.errors.required">
+                        <p style="color: red;">Required</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <button type="submit" class="btns_style publishbtn" (click)="udpate(myForm.value)">Publish</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <onboarding-sidebar  [activeState]="'type-of-store'"></onboarding-sidebar>
+          </div>
+          <!--Onborading Management End Here  -->
+        </div>
+      </div>
+    </div>
+  </div>

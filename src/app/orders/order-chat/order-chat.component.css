@@ -1,0 +1,270 @@
+.chatmainwr {
+    border: 1px solid rgb(167, 69, 69);
+}
+.chatperson{
+    display: flex;
+    align-items: flex-start;
+    flex-flow: wrap;
+    justify-content: space-between
+}
+.chatperson .chatpersonimgwr{
+    width:140px;
+    padding: 10px;
+    text-align: center;
+    position: relative;
+}
+.chatpersonimgwr span.onlinestatus{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: green;
+    display: block;
+    position: absolute;
+    top: 7px;
+    right: 7px;
+}
+.chatperson .chatpersonimgwr .chatpname{
+   font-size:23px;
+}
+.chatperson .chatpersonimgwr .chatpname span{
+    font-size:15px;
+    display: block;
+ }
+.chatperson .chatpersonimg{
+    width:120px;
+    height:120px;
+    border:1px solid rgb(128, 38, 38);
+}
+.chatperson .chatpersonimg img{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+}
+.chatperson .chat_options{
+    margin-left: 20px;
+    display: flex;
+}
+.chatperson .chat_options .chat_optiondiv{
+    border-left:1px solid rgb(209, 49, 49);
+    border-bottom:1px solid rgb(131, 46, 46);
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.chat_screencontent {
+    height: calc(100vh - 365px);
+    overflow-y: auto;
+}
+.chat_screencontent .chat_reciver {
+    background-color: rgb(158, 9, 9);
+    color: #fff;
+    word-break: break-word;
+    display: inline-block;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    position: relative;
+    padding: 10px 30px 10px 10px;
+    margin:10px 10px 60px 0px;
+}
+.chat_screencontent .chat_sender {
+    background-color: #fff;
+    word-break: break-word;
+    display: inline-block;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    position: relative;
+    padding: 10px 10px 10px 30px;
+    border: 1px solid #000;
+    margin:10px 0px 10px 60px;
+}
+span.chattime{
+    display: block;
+}
+span.unread svg{
+    fill:#ccc;
+}
+span.read svg{
+    fill:#4fc3f7;
+}
+span.unseen svg{
+    fill:#ccc;
+}
+.chat_input{
+    border-top:1px solid rgb(190, 140, 140);
+    background: #fff;
+}
+.chat_input input#message{
+    width:calc(100% - 80px);
+    border: 0px;
+    padding: 10px;
+}
+.chat_input label.uploadfile{
+    border-left:1px solid rgb(209, 17, 17);
+    border-right:1px solid rgb(128, 45, 45);
+}
+.chat_input label.submitchat,.chat_input label.uploadfile{
+    width:40px;
+    margin:0;
+    padding: 10px 0px;
+    text-align: center;
+}
+.chat_input label.uploadfile svg,.chat_input  .submitchat svg{
+    fill:#000;
+}
+.chat_input .hideinput{
+    display: none;
+}
+.messagealerts{
+    /* border-top:1px solid rgb(128, 49, 49);
+    border-bottom:1px solid rgb(155, 38, 38); */
+    /* margin: 10px 0px;
+    font-size:16px;
+    text-align: center;
+    padding: 10px; */
+    font-size: 16px;
+    text-align: center;
+    padding: 6px;
+    display: table;
+    margin: 10px auto;
+    background: #e1f3fb;
+    border-radius: 5px;
+}
+.messagealerts p{
+    margin: 0;
+    font-size: 14px;
+    display: inline;
+    background-color: #e1f3fb;
+    padding: 8px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.messagealerts span.alerttime{
+    display: inline-block;
+    /* float: right; */
+}
+
+/* New Custom chat wrap */
+.chatmainwr{
+    border: 1px solid rgb(167, 69, 69);
+    position: relative;
+    background: url(https://i.ibb.co/3s1f9Jq/default-wallpaper.png) repeat;
+    z-index: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.chat_screencontent .chat_reciver{
+    background-color: rgb(255 255 255);
+    color: #000;
+    word-break: break-word;
+    display: inline-block;
+    position: relative;
+    padding: 10px 30px 10px 10px;
+    margin: 10px 10px 60px 15px;
+    border-radius: 10px;
+}
+.chat_screencontent .chat_reciver :after {
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0px 20px 18px 0;
+    border-color: transparent #fff transparent transparent;
+    top: 0;
+    left: -12px;
+}
+.chat_screencontent .chat_sender{
+    background: #e1ffc7;
+    color: #000;
+    word-break: break-word;
+    display: inline-block;
+    position: relative;
+    padding: 10px 30px 10px 10px;
+    margin: 10px 20px 60px 0px;
+    border-radius: 10px;
+    border: 0;
+}
+.chat_screencontent .chat_sender:after {
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0px 0 20px 20px;
+    border-color: transparent transparent transparent #e1ffc7;
+    top: 0;
+    right: -10px;
+}
+.chat_input{
+    border: 1px solid #fff;
+    background: #fff;
+    border-radius: 50px;
+    overflow: hidden;
+    margin: 5px 10px;
+    box-shadow: 0 1px 6px 0 rgba(32, 33, 36, .28);
+}
+.chatperson .chatpersonimg{
+    width: 80px;
+    height: 80px;
+    border: 1px solid rgb(128, 38, 38);
+    border-radius: 80px;
+    overflow: hidden;
+}
+.chatperson .chatpersonimgwr{
+    width: 250px;
+    padding: 10px 20px;
+    text-align: center;
+    position: relative;
+}
+.chatperson .chatpersonimgwr .gotochatbtn{
+    position: absolute;
+    top: 30px;
+    right: 0px;
+}
+.chatperson .chatpersonimgwr .chatpname{
+    font-size: 20px;
+    text-align: left;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    white-space: nowrap;
+    margin-top: 5px;
+}
+.chatperson .chat_options{
+    margin-left: 20px;
+    display: flex;
+    background-color: #fff;
+}
+.styleCursor {
+  cursor: pointer;
+}
+.requiredTxt {
+  position: absolute;
+  left: 22px;
+  bottom: -10px;
+}
+
+.receiverimg{
+     width: 200px;
+     height: 120px;
+     margin-left: 10px;
+     border-radius: 5px;
+     overflow: hidden;
+     cursor: pointer;
+     /* -webkit-transform: scale(1); */
+     object-fit: cover;
+     /* transform: scale(1); */
+}
+.senderimg{
+    width: 200px;
+    height: 120px;
+    margin-left: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    cursor: pointer;
+    /* -webkit-transform: scale(1); */
+    /* transform: scale(1); */
+    object-fit: cover;
+    margin: 0 auto;
+    display: table;
+}

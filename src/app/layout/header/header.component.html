@@ -1,0 +1,37 @@
+<header id="header" class="header">
+  <div class="top-left">
+    <div class="header_logo"> <img src="assets/images/logo.png"  /></div>
+    <div class="navbar-header">
+      <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
+    </div>
+    
+  </div>
+  <div class="top-right">
+<div class="header_logout_wrap">
+  <!-- <div class="user_detail_wrap" aria-labelledby="dropdownMenuButton">
+    <a class="waves-effect" href="javascript:void(0)" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/admin_user_pic.jpg" alt="">My Account<i class="fa fa-angle-down" aria-hidden="true"></i>
+    </a>
+    <div class="header_drop_content dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <ul>
+<li><a href="javascript:void(0)"><i class="fa fa-cogs" aria-hidden="true"></i>Admin Setting</a>
+            </li>
+            <li><a href="javascript:void(0)"><i class="fa fa-undo" aria-hidden="true"></i>View Profile</a>
+            </li>
+            <li><a href="javascript:void(0)"><i class="fa fa-sign-in" aria-hidden="true"></i>
+  Logout</a>
+            </li>
+        </ul>
+    </div>
+</div> -->
+<div class="dropdown">
+  <a data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i> My Account
+    <i aria-hidden="true" class="fa fa-angle-down"></i></a>
+  <ul class="dropdown-menu">
+    <!-- <li><a ><i class="fa fa-cogs" aria-hidden="true"></i>Admin Setting</a> </li>
+    <li><a ><i class="fa fa-undo" aria-hidden="true"></i>View Profile</a> -->
+     <li><a   (click)="logout()"><i class="fa fa-sign-in" aria-hidden="true"></i>Logout</a></li>
+  </ul>
+</div>
+</div>
+  </div>
+</header>

@@ -1,0 +1,136 @@
+@media only screen and (min-width: 1920px) {
+  
+}
+@media only screen and (min-width: 1900px) {
+
+}
+@media only screen and (max-width: 1800px) {
+
+}
+@media only screen and (max-width: 1700px) {
+   
+}
+@media only screen and (max-width: 1600px) {
+   
+}
+@media only screen and (max-width: 1500px) {
+
+}
+@media only screen and (max-width: 1400px) {
+   
+}
+@media only screen and (max-width: 1366px) {
+}
+
+@media only screen and (max-width: 1350px) {
+   
+}
+@media only screen and (max-width: 1200px) {
+    aside.left-panel {
+      width: 200px;
+     }
+     .right-panel {
+    background: #f1f2f7;
+    margin-left: 200px;
+}
+.file.is-boxed label.file-label{
+    width: calc(30% - 10px) !important;
+}
+}
+@media only screen and (max-width: 1170px) {
+    .input_wrap_search_responsive{
+        position: absolute !important;
+        top: -30px;
+        left: 20px;
+    }
+}
+@media only screen and (max-width: 1080px) {
+  
+}
+@media only screen and (max-width: 1024px) {
+    .grap_wrap{
+        margin: 0;
+      }
+}
+@media only screen and (max-width: 1023px) {
+
+}
+@media only screen and (max-width: 991px) {
+    .header_logo {
+        margin-left: 0px !important;
+    }
+    .btnflex {
+        display: block;
+    }
+    .btnflex .whitebtns_style {
+       margin-top:10px;
+        width: 200px;
+    }
+    .btnflex .input_wrap_search {
+        margin-left: 20px;
+    }
+    .btnflex .input_wrap_search .form-control {
+        display: flex;
+        height: 40px;
+        width: 200px;
+    }
+    .responsive_slelect .select{
+         margin-bottom: 10px;
+    }
+    .responsive_select_artisan .select{
+        margin-bottom: 10px;
+    }
+    .responsive_select_artisan .btnflex .btns_style {
+        margin-left: 20px;
+        width: 160px;
+    }
+    .file.is-boxed label.file-label{
+    width:150px !important;
+    margin-bottom:5px !important;
+    padding: 0 5px;
+}
+.screen_heading h3 {
+   font-size: 16px ! important;
+}
+.btns_style{
+    width:150px !important;
+    margin-bottom:5px !important;
+}
+.btnflex .whitebtns_style {
+    margin-top: 10px;
+    width: 150px !important;
+}
+.brrt{
+    border-right: 0px solid #000 !important;
+}
+.btnflex .input_wrap_search .form-control {
+    display: flex;
+    height: 40px;
+    width: 150px
+}
+.input_wrap_search_responsive{
+    position: relative !important;
+    top: 0;
+    left: 0;
+}
+.file.is-boxed figure{
+    width: calc(50% - 10px) !important;
+}
+.btnflex .input_wrap_search {
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+.progressbar {
+    padding-left: 0px;
+    margin: 0 auto;
+}
+}
+@media only screen and (max-width: 767px) {
+ 
+}
+@media only screen and (max-width: 480px) {
+
+}
+@media only screen and (max-width: 380px) {
+    
+}

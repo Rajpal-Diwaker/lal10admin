@@ -1,0 +1,73 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <div class="animated fadeIn">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="enquary_heading_title">
+            <h3>User Details</h3>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="commom_form_input"></div>
+            <div class="form-group">
+              <label>Full Name :</label>
+              <input class="form-control" readonly [value]='List?.artisanName'  placeholder="Tital" type="name">
+            </div>
+            <div class="form-group">
+              <label>Email :</label>
+              <input class="form-control" readonly placeholder="Description" type="name" [value]='List?.email' >
+            </div>
+            <div class="form-group">
+              <label>Mobile Number :</label>
+              <input class="form-control" readonly placeholder="Mobile Number" type="name" [value]='List?.mobile' >
+            </div>
+            <div class="form-group">
+              <label>Country code :</label>
+              <input class="form-control" readonly placeholder="Country code" type="name" [value]='List?.country' >
+            </div>
+
+            <div class="col-md-12">
+              <div class="enquary_heading_title">
+                <h3>Store Details</h3>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Type of store:</label>
+              <input class="form-control" readonly placeholder="type Store" type="name" [value]='List?.typeofstore'>
+            </div>
+            <div class="form-group">
+              <label>Store Name:</label>
+              <input class="form-control" readonly placeholder="Store" type="name" [value]='List?.storeName'>
+            </div>
+            <div class="form-group" hidden>
+              <label>Year in business:</label>
+              <input class="form-control" readonly placeholder="Year in business" type="name" [value]='List?.year'>
+            </div>
+            <div class="form-group" hidden>
+              <label>Annual Sales:</label>
+              <input class="form-control" readonly placeholder="Annual sales " type="name" [value]='List?.annualSale'>
+            </div>
+            <div class="form-group">
+              <label>Hear About us from :</label>
+              <input class="form-control" readonly placeholder="Here about " type="name" [value]='List?.hearaboutus'>
+            </div>
+            <div class="form-group" hidden>
+              <label>Kind of store they have :</label>
+              <input class="form-control" readonly placeholder="kind of store they have" type="name" [value]='List?.annualSale'>
+            </div>
+            <div class="form-group">
+              <label>Product they sell:</label>
+              <input class="form-control" readonly placeholder="product they sell" type="name" [value]='List?.productTheySell'>
+            </div>
+            <div class="form-group">
+              <label>Important for Us and our customers:</label>
+              <input class="form-control" readonly placeholder="important for us and our customers" type="name" [value]='List?.customerImportant'>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>

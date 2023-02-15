@@ -1,0 +1,81 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <div class="sort_filter_wrap">
+      <div class="heading_divwr">
+        <div class="screen_heading">
+          <h3>Manage Onboarding</h3>
+        </div>
+        <div>
+          <div class="btnflex">
+            <a class="whitebtns_style" [routerLink]="'/onboarding/add-app-onboarding'"> <i aria-hidden="true"
+                class="fa fa-plus-circle"></i>Add Onboarding</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="animated fadeIn">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <div class="main-wrapper">
+            <div class="user_detail">
+              <div class="table-responsive ">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th *ngFor="let item of listHeaders">
+                        <abbr title="{{item}}">{{item}}</abbr>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of listArr; let i=index">
+                      <td>
+                        <div class="dragdiv">
+                          {{ i+1 }}
+                          <!-- <div class="dragupdown">
+                          <i class="fa fa-caret-up" aria-hidden="true"></i>
+                          <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </div> -->
+                        </div>
+                      </td>
+                      <td width="120">
+                        <figure class="tdimg">
+                          <img (error)="def($event, item.id)" src="{{ item.image }}">
+                        </figure>
+                      </td>
+                      <td class="description_data">{{ item.description ? item.description : '-' }}</td>
+                      <td class="description_data">{{ item.hindiDescription ? item.hindiDescription : '-'}}</td>
+                      <td class="description_data">{{ item.bangaliDescription ? item.bangaliDescription : '-' }}</td>
+                      <td class="description_data">{{ item.gujratiDescription ? item.gujratiDescription : '-' }}</td>
+                      <td>{{ item.created_at|date:'longDate':'UTC'  }}</td>
+                      <!-- <td>{{ item.language | titlecase }}</td> -->
+                      <td><a class="pointer"> <i class="fa fa-pencil" (click)="edit(item.id)" aria-hidden="true"></i>
+                        </a>
+                        &nbsp;
+                        <a class="pointer" (click)="delete(item.id)">
+                          <i style="color: red;" class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                      </td>
+                      <td>
+                        <div class="field">
+                          <input id="{{'switchRoundedSuccess'+item.id}}" type="checkbox"
+                            (change)="changeStatus( $event.target.checked, item.id)" name="switchRoundedSuccess"
+                            class="switch is-rounded is-success" [checked]="item.isActive">
+                          <label for="{{'switchRoundedSuccess'+item.id}}"></label>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <notfound *ngIf="listArr?.length==0"></notfound>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

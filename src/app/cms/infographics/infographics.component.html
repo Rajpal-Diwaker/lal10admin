@@ -1,0 +1,213 @@
+<app-sidebar></app-sidebar>
+
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+
+  <div class="content">
+    <div class="sort_filter_wrap">
+      <div class="heading_divwr">
+        <div class="screen_heading">
+          <h3 class="hwswitch">CMS - Update Inforgraphics
+            <div class="checkboxdiv">
+              <input id="check1" type="checkbox" name="switchRoundedSuccess" class="switch is-rounded is-success"
+               >
+              <label for="check1"></label>
+            </div>
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-7">
+        <ng-container *ngIf="indiaFlag">
+          <form [formGroup]="infoFormIndia" (ngSubmit)="submit()">
+            <div class="input_form_wrap">
+              <div class="field">
+                <label class="label">Total Products</label>
+                <div class="control">
+                  <input (keypress)="numberOnly($event)" class="input" type="text" placeholder="Total no. of products" formControlName="products">
+                  <div *ngIf="f.products.errors && f.products.touched" class="invalid">
+                    <div *ngIf="f.products.errors.required">
+                      <p style="color: red;">Required</p>
+                    </div>
+                    <div *ngIf="f.products.errors.pattern">
+                      <p style="color: red;">Only numbers allowed</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Units Delivered</label>
+                <div class="control">
+                  <input (keypress)="numberOnly($event)" class="input" type="text" placeholder="No. of units delivered" formControlName="delivered">
+                  <div *ngIf="f.delivered.errors && f.delivered.touched" class="invalid">
+                    <div *ngIf="f.delivered.errors.required">
+                      <p style="color: red;">Required</p>
+                    </div>
+                    <div *ngIf="f.delivered.errors.pattern">
+                      <p style="color: red;">Only numbers allowed</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Indian State</label>
+                <div class="control">
+                  <input (keypress)="numberOnly($event)" class="input" type="text" placeholder="No. of countries exported" formControlName="exported">
+                  <div *ngIf="f.exported.errors && f.exported.touched" class="invalid">
+                    <div *ngIf="f.exported.errors.required">
+                      <p style="color: red;">Required</p>
+                    </div>
+                    <div *ngIf="f.exported.errors.pattern">
+                      <p style="color: red;">Only numbers allowed</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Artisans Worked With</label>
+                <div class="control">
+                  <input (keypress)="numberOnly($event)" class="input" type="text" placeholder="No. of artisans" formControlName="artisan">
+                  <div *ngIf="f.artisan.errors && f.artisan.touched" class="invalid">
+                    <div *ngIf="f.artisan.errors.required">
+                      <p style="color: red;">Required</p>
+                    </div>
+                    <div *ngIf="f.artisan.errors.pattern">
+                      <p style="color: red;">Only numbers allowed</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="file is-boxed">
+                <label class="file-label">
+                  <input class="file-input" (change)="fileUpload($event, 'image')" type="file"  accept="image/*" name="resume">
+                  <span class="file-cta">
+                    <span class="file-icon">
+                      <i class="fa fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                      Add Image
+                    </span>
+                  </span>
+                </label>
+                <figure *ngIf="imageSelectedFlag && previewObj['image'] " class="image is-128x128">
+                  <img src="{{previewObj['image']}}">
+                </figure>
+                <figure *ngIf="!imageSelectedFlag" class="image is-128x128">
+                  <img [src]="targetImage">
+                </figure>
+              </div>
+              <div class="field is-grouped">
+                <div class="control">
+                  <button type="submit" class="button is-link">Submit</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </ng-container>
+
+        <ng-container *ngIf="!indiaFlag">
+          <form [formGroup]="infoFromCountry" (ngSubmit)="submit()">
+            <div class="input_form_wrap">
+              <div class="field">
+                <label class="label">Countries</label>
+                <div class="control">
+                  <input (keypress)="numberOnly($event)" class="input" type="text" placeholder="No. of countries" formControlName="countries">
+                  <div *ngIf="g.countries.errors && g.countries.touched" class="invalid">
+                    <div *ngIf="g.countries.errors.required">
+                      <p style="color: red;">Required</p>
+                    </div>
+                    <div *ngIf="g.countries.errors.pattern">
+                      <p style="color: red;">Only numbers allowed</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Industries Served</label>
+                <div class="control">
+                  <input (keypress)="numberOnly($event)" class="input" type="text" placeholder="No. of inddusties served" formControlName="industries">
+                  <div *ngIf="g.industries.errors && g.industries.touched" class="invalid">
+                    <div *ngIf="g.industries.errors.required">
+                      <p style="color: red;">Required</p>
+                    </div>
+                    <div *ngIf="g.industries.errors.pattern">
+                      <p style="color: red;">Only numbers allowed</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Total Projects</label>
+                <div class="control">
+                  <input (keypress)="numberOnly($event)" class="input" type="text" placeholder="No. total projects" formControlName="projects">
+                  <div *ngIf="g.projects.errors && g.projects.touched" class="invalid">
+                    <div *ngIf="g.projects.errors.required">
+                      <p style="color: red;">Required</p>
+                    </div>
+                    <div *ngIf="g.projects.errors.pattern">
+                      <p style="color: red;">Only numbers allowed</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Total Clients</label>
+                <div class="control">
+                  <input (keypress)="numberOnly($event)" class="input" type="text" placeholder="No. of total clients" formControlName="clients">
+                  <div *ngIf="g.clients.errors && g.clients.touched" class="invalid">
+                    <div *ngIf="g.clients.errors.required">
+                      <p style="color: red;">Required</p>
+                    </div>
+                    <div *ngIf="g.clients.errors.pattern">
+                      <p style="color: red;">Only numbers allowed</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="file is-boxed">
+                <label class="file-label">
+                  <input class="file-input" (change)="fileUpload($event, 'image')" type="file"  accept="image/*" name="resume">
+                  <span class="file-cta">
+                    <span class="file-icon">
+                      <i class="fa fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                      Add Image
+                    </span>
+                  </span>
+                </label>
+                <!-- <figure *ngIf="previewObj['image']" class="image is-128x128">
+                  <img src="{{previewObj['image']}}">
+                </figure> -->
+                <figure *ngIf="imageSelectedFlag && previewObj['image'] " class="image is-128x128">
+                  <img src="{{previewObj['image']}}">
+                </figure>
+                <figure *ngIf="!imageSelectedFlag" class="image is-128x128">
+                  <img [src]="targetImage">
+                </figure>
+              </div>
+              <div class="field is-grouped">
+                <div class="control">
+                  <button type="submit" class="button is-link">Submit</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </ng-container>
+
+      </div>
+      <div class="col-md-2 sideNav">
+        <div class="column sider_wrap_cms">
+          <select class="form-control" (change)="changeSelection($event.target.value)">
+            <option value="india">India</option>
+            <option value="country">World</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <cms-sidebar [activeState]="'infographics'"></cms-sidebar>
+      </div>
+    </div>
+  </div>
+</div>

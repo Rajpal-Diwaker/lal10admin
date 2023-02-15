@@ -1,0 +1,176 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+
+    <form [formGroup]="artisanGrp" (ngSubmit)="submit()">
+      <h3 class="title">{{editFlag!=true?'Add Artisan':'Edit Artisan'}}</h3>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="file is-boxed">
+            <label class="file-label">
+              <input class="file-input" (change)="fileUpload($event, 'kycImage')" type="file"  accept="image/*" name="resume">
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fa fa-upload"></i>
+                </span>
+                <span class="file-label">
+                  KYC Image
+                </span>
+              </span>
+            </label>
+            <figure *ngIf="previewObj['kycImage']" class="image is-128x128">
+              <img (click)="showImage(previewObj['kycImage'], 'KYC')" src="{{previewObj['kycImage']}}">
+            </figure>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="file is-boxed">
+            <label class="file-label">
+              <input class="file-input" (change)="fileUpload($event, 'artisanImage')" type="file" name="resume" accept="image/*">
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fa fa-upload"></i>
+                </span>
+                <span class="file-label">
+                  Artisan Image
+                </span>
+              </span>
+            </label>
+            <figure *ngIf="previewObj['artisanImage']" class="image is-128x128">
+              <img (click)="showImage(previewObj['artisanImage'])" src="{{previewObj['artisanImage']}}">
+            </figure>
+          </div>
+        </div>
+      </div>
+      <div class="row input_form_wrap">
+        <div class="field col-sm-6">
+          <label class="label">Name</label>
+          <div class="control">
+            <input class="input" alphaonly type="text" maxlength="40" placeholder="Name" formControlName="name">
+            <div *ngIf="f.name.errors && f.name.touched" class="invalid">
+              <div *ngIf="f.name.errors.required">
+                <p style="color: red;">Name is required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Email</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input " type="email" placeholder="Email" value="" formControlName="email">
+            <!-- <span class="icon is-small is-left">
+          <i class="fa fa-envelope"></i>
+        </span> -->
+            <div *ngIf="f.email.errors && f.email.touched" class="invalid">
+              <div *ngIf="f.email.errors.required">
+                <p style="color: red;">Email is required</p>
+              </div>
+              <div *ngIf="f.email.errors.email">
+                <p style="color: red;">Invalid email</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Mobile</label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input is-success" numberonly type="text" placeholder="Mobile" formControlName="mobile">
+            <!-- <span class="icon is-small is-left">
+          <i class="fa fa-phone"></i>
+        </span> -->
+            <div *ngIf="f.mobile.errors && f.mobile.touched" class="invalid">
+              <div *ngIf="f.mobile.errors.required">
+                <p style="color: red;">Mobile is required</p>
+              </div>
+              <div *ngIf="f.mobile.errors.minlength">
+                <p style="color: red;">Minimum length is {{f.mobile.errors.minlength.requiredLength}}</p>
+              </div>
+              <div *ngIf="f.mobile.errors.maxlength">
+                <p style="color: red;">Maximum length is {{f.mobile.errors.maxlength.requiredLength}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">State</label>
+          <div class="control">
+            <!-- <div class="select">
+              <select (change)="getCraft(f.state.value, '')" formControlName="state">
+                <option value=''>Select State</option>
+                <option *ngFor="let item of stateArr" [value]="item.id">{{item.name}}</option>
+              </select>
+            </div> -->
+            <ng-select
+                [items]="stateArr"
+                [placeholder]="'Select State'"
+                [clearable]="false"
+                bindLabel="name"
+                bindValue="id"
+                (change)="getCraft($event.id,'')" formControlName="state">
+              </ng-select>
+          </div>
+          <div *ngIf="f.state.errors && f.state.touched" class="invalid">
+            <div *ngIf="f.state.errors.required">
+              <p style="color: red;">State is required</p>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Craft</label>
+          <div class="control">
+            <ng-multiselect-dropdown (onSelect)="getMaterial($event,'ON')" formControlName="craft" [placeholder]="'Select Craft'" [data]="craftList"
+              [settings]="craftSetting" (onSelectAll)="getMaterial($event,'ALL')" (onDeSelect)="getMaterial($event,'DE')" (onDeSelectAll)="getMaterial($event,'DESELECTALL')">
+            </ng-multiselect-dropdown>
+          </div>
+          <div *ngIf="f.craft.errors && f.craft.touched" class="invalid">
+            <div *ngIf="f.craft.errors.required">
+              <p style="color: red;">Craft is required</p>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Material</label>
+          <div class="control">
+              <!-- <select formControlName="material">
+                <option value=''>Select Material</option>
+                <option *ngFor="let item of materialArr" value="{{item.id}}">{{item.name}}</option>
+              </select> -->
+              <ng-multiselect-dropdown (onSelect)="getProducts($event,'ON')" formControlName="material" [placeholder]="'Select Material'"
+                [data]="materialList" [settings]="materialSetting"
+                (onSelectAll)="getProducts($event,'ALL')" (onDeSelect)="getProducts($event,'DE')" (onDeSelectAll)="getProducts($event,'DESELECTALL')">
+              </ng-multiselect-dropdown>
+          </div>
+          <div *ngIf="f.material.errors && f.material.touched" class="invalid">
+            <div *ngIf="f.material.errors.required">
+              <p style="color: red;">Material is required</p>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Product</label>
+          <div class="control">
+              <ng-multiselect-dropdown formControlName="product" [placeholder]="'Select Product'" [data]="productList"
+                [settings]="productSetting">
+              </ng-multiselect-dropdown>
+          </div>
+          <div *ngIf="f.product.errors && f.product.touched" class="invalid">
+            <div *ngIf="f.product.errors.required">
+              <p style="color: red;">Product is required</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- // was state here -->
+        <div class="field is-grouped col-sm-12">
+          <div class="control">
+            <button type="submit" class="button is-link">Submit</button>
+          </div>
+          <div class="control">
+            <button class="button is-link is-light" [routerLink]="'/artisan'">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

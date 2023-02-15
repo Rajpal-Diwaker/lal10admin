@@ -1,0 +1,99 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <div class="sort_filter_wrap">
+      <div class="heading_divwr">
+        <div class="screen_heading">
+          <h3>Website CMS: Sign-up Onboarding</h3>
+        </div>
+        <div>
+          <!-- <div class="btnflex">
+            <a [routerLink]="'/onboarding/add'" class="whitebtns_style"><i aria-hidden="true"
+                class="fa fa-plus-circle"></i> Add Onboarding</a>
+          </div> -->
+        </div>
+      </div>
+    </div>
+    <div id="wrapper">
+      <div class="contant_wrap">
+        <!-- Onborading Managementn Start Here  -->
+        <div class="row" [formGroup]='myForm'>
+          <div class="col-lg-9">
+            <div class="subheading_div">
+              <h4>Important for customer</h4>
+            </div>
+            <!-- <div class="selcntry">
+              <div class="input_form_wrap">
+                <div class="field">
+                  <div class="control">
+                    <div class="select is-primary">
+                      <select formControlName="country">
+                        <option value=''>Select Country</option>
+                        <option value='India'>India</option>
+                      </select>
+                    </div>
+                    <div *ngIf="f.country.errors && f.country.touched" class="invalid">
+                      <div *ngIf="f.country.errors.required">
+                        <p style="color: red;">country is required</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <div class="row">
+              <div class="col-md-3 col-lg-3 col-sm-3" formArrayName="items"
+                *ngFor="let item of myForm.get('items')['controls']; let i = index;">
+                <div class="card_wrap_onboard" [formGroupName]="i">
+
+                  <div class="crafts_card_wrap">
+                    <div class="edit_delete">
+                      <label for="{{'openFile'+i}}"> <a> <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a></label>
+                      <input type="file" accept="image/*" id="{{'openFile'+i}}"
+                        (change)="edit(item.value,i);fileUpload($event,false)" style="display: none;">
+                      <a (click)="delete(item.value)" class="delete_icon"> <i class="fa fa-trash"
+                          aria-hidden="true"></i>
+                      </a>
+                    </div>
+                    <img (error)="def($event, item.icon)" [src]="myForm.get('items').value[i]?.icon">
+                  </div>
+                  <div class="product_name">
+                    <h2>{{myForm.get('items').value[i]?.name|titlecase}}</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="marbt">
+              <div class="row">
+                <div class="col-sm-2">
+                  <div class="attach_file">
+                    <input id="f02" type="file" accept="image/*" style="display:none;"
+                      (change)="fileUpload($event,false)" placeholder="Add profile picture" />
+                    <label for="f02" class="whitebtns_style"> <i class="fa fa-plus" aria-hidden="true"></i> Attach
+                      Image</label>
+                    <input class="form-control" placeholder="Enter Name" formControlName='name'>
+                    <div *ngIf="f.name.errors && f.name.touched" class="invalid">
+                      <div *ngIf="f.name.errors.required">
+                        <p style="color: red;">Name is required</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <a href="javascript:void(0)" (click)="udpate(myForm.value)" class="btns_style publishbtn">Publish</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <onboarding-sidebar [activeState]="'Important'"></onboarding-sidebar>
+          </div>
+          <!--Onborading Management End Here  -->
+        </div>
+      </div>
+    </div>
+  </div>

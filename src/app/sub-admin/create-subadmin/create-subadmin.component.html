@@ -1,0 +1,100 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <div class="sort_filter_wrap">
+      <div class="heading_divwr">
+        <h3>Create Group</h3>
+        <div class="btnflex">
+        </div>
+      </div>
+    </div>
+    <form [formGroup]="myform" (ngSubmit)="submit(myform.value)">
+      <div class="row input_form_wrap">
+        <div class="field col-sm-6">
+          <label class="label">Sub-Admin name </label>
+          <div class="control">
+            <input class="input"  type="text"  placeholder="Name" formControlName="name">
+            <div *ngIf="f.name.errors && f.name.touched" class="invalid">
+              <div *ngIf="f.name.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Email ID </label>
+          <div class="control">
+            <input class="input"  type="email"  placeholder="email"
+              formControlName="email">
+              <div *ngIf="f.email.errors && f.email.touched" class="invalid">
+                <div *ngIf="f.email.errors.required">
+                  <p style="color: red;">Email is required</p>
+                </div>
+                <div *ngIf="f.email.errors.email">
+                  <p style="color: red;">Invalid email</p>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Mobile Number </label>
+          <div class="control has-icons-left has-icons-right">
+            <input class="input " numberonly type="text" placeholder="Mobile Number" formControlName="mobile">
+            <div *ngIf="f.mobile.errors && f.mobile.touched" class="invalid">
+              <div *ngIf="f.mobile.errors.required">
+                <p style="color: red;">Required</p>
+              </div>
+              <div *ngIf="f.mobile.errors.minlength">
+                <p style="color: red;">Minimum length is {{f.mobile.errors.minlength.requiredLength}}</p>
+              </div>
+              <div *ngIf="f.mobile.errors.maxlength">
+                <p style="color: red;">Maximum length is {{f.mobile.errors.maxlength.requiredLength}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">password</label>
+          <div class="control">
+            <input class="input is-success" type="password" placeholder="Password" formControlName="password">
+          </div>
+          <div *ngIf="f.password.errors && f.password.touched" class="invalid">
+            <div *ngIf="f.password.errors.required">
+              <p style="color: red;">Required</p>
+            </div>
+            <div *ngIf="f.password.errors.minlength">
+              <p style="color: red;">Minimum length is {{f.password.errors.minlength.requiredLength}}</p>
+            </div>
+            <div *ngIf="f.password.errors.maxlength">
+              <p style="color: red;">Maximum length is {{f.password.errors.maxlength.requiredLength}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="field col-sm-6">
+          <label class="label">Add role</label>
+          <div class="control">
+            <div class="select">
+              <ng-multiselect-dropdown [placeholder]="'Select Role'" [data]="role" formControlName='roleIds'
+                [settings]="roleSetting">
+              </ng-multiselect-dropdown>
+            </div>
+          </div>
+          <div *ngIf="f.roleIds.errors && f.roleIds.touched" class="invalid">
+            <div *ngIf="f.roleIds.errors.required">
+              <p style="color: red;">Required</p>
+            </div>
+          </div>
+        </div>
+        <div class="field is-grouped col-sm-12">
+          <div class="control">
+            <button type="submit" class="button is-link">Submit</button>
+          </div>
+          <div class="control">
+            <button class="button is-link is-light" [routerLink]="'/subadmin'">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

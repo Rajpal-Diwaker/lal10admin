@@ -1,0 +1,23 @@
+{
+    "status": true,
+    "code": 0,
+    "result": [
+        {
+            "ProductName": "",
+            "Amount": "",
+            "InventoryQty": "",
+            "MinQty":"",
+            "Tags":"",
+            "Description":"",
+            "main_image_url":"",
+            "other_image_url":"",
+            "VendorName":"",
+            "CategoryName": "",
+            "SubCategoryName": "",
+            "SKU": "",
+            "SubSubCategoryName": "",
+            "addingBestselling": ""
+
+        }
+    ]
+}

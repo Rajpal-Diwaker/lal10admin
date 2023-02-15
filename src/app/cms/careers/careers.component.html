@@ -1,0 +1,131 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <div class="sort_filter_wrap">
+      <div class="heading_divwr">
+        <div class="screen_heading">
+          <h3 class="hwswitch">CMS - Career
+            <!-- <div class="checkboxdiv">
+              <input id="check1" type="checkbox" name="switchRoundedSuccess" class="switch is-rounded is-success"
+               >
+              <label for="check1"></label>
+            </div> -->
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-9">
+        <form [formGroup]="uspGrp" (ngSubmit)="submit()">
+          <div class="input_form_wrap">
+            <!-- <div class="file is-boxed">
+              <label class="file-label">
+                <input class="file-input" accept="image/*" (change)="fileUpload($event, 'image')" type="file" name="resume">
+                <span class="file-cta">
+                  <span class="file-icon">
+                    <i class="fa fa-upload"></i>
+                  </span>
+                  <span class="file-label">
+                    Image
+                  </span>
+                </span>
+              </label>
+              <figure *ngIf="previewObj['image']" class="image is-128x128">
+                <img src="{{previewObj['image']}}">
+              </figure>
+            </div> -->
+            <div class="field">
+              <label class="label">Add Title</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="title" formControlName="title">
+              </div>
+              <div *ngIf="f.title.errors && f.title.touched" class="invalid">
+                <div *ngIf="f.title.errors.required">
+                  <p style="color: red;">title is required</p>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Add Position</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="title" formControlName="position">
+              </div>
+              <div *ngIf="f.position.errors && f.position.touched" class="invalid">
+                <div *ngIf="f.position.errors.required">
+                  <p style="color: red;">position is required</p>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Add Total Opening</label>
+              <div class="control">
+                <input type="number" class="input" placeholder="title" formControlName="totalOpening">
+              </div>
+              <div *ngIf="f.totalOpening.errors && f.totalOpening.touched" class="invalid">
+                <div *ngIf="f.totalOpening.errors.required">
+                  <p style="color: red;">Total no. of opening is required</p>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Description</label>
+              <div class="control">
+                <textarea maxlength="500" formControlName="description" class="textarea form-control" placeholder=""
+                  rows="10"></textarea>
+              </div>
+              <div *ngIf="f.description.errors && f.description.touched" class="invalid">
+                <div *ngIf="f.description.errors.required">
+                  <p style="color: red;">description is required</p>
+                </div>
+              </div>
+            </div>
+            <div class="field is-grouped">
+              <div class="control">
+                <button type="submit" class="button is-link">Submit</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-3">
+        <cms-sidebar [activeState]="'Careers'"></cms-sidebar>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <label class="customlabel">Career List</label>
+      </div>
+      <div class="col-md-12">
+        <div class="table-responsive ">
+          <table class="table">
+            <tbody>
+              <tr *ngFor="let item of list; let i=index">
+                <!-- <td width="120">
+                  <figure class="tdimg">
+                    <img [src]="item?.link" onError="this.src='assets/images/def.png';">
+                  </figure>
+                </td> -->
+                <td>{{item?.title}}</td>
+                <td>{{item?.position}}</td>
+                <td>{{item?.totalOpening}}</td>
+                <td>{{item?.description}}</td>
+                <td>{{item?.createdAt|date}}</td>
+                <td class="text-right">
+                  <!-- <a class="pointer"> <i class="fa fa-pencil" aria-hidden="true"></i></a> -->
+                  &nbsp;
+                  <a class="pointer"> <i (click)="delete(item)" style="color: red;" class="fa fa-trash" aria-hidden="true"></i></a>
+                  <div class="checkboxdiv">
+                    <input id="{{'switchRoundedSuccess'+item?.id}}" type="checkbox" name="switchRoundedSuccess" class="switch is-rounded is-success"
+                    [checked]="item?.isActive" (change)="changeStatus(i,$event.target.checked, item.id)">
+                    <label for="{{'switchRoundedSuccess'+item?.id}}"></label>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+h3.hwswitch{
+    display: flex;
+    align-items: center;
+}
+h3.hwswitch .checkboxdiv{
+    margin-left: 10px;
+}

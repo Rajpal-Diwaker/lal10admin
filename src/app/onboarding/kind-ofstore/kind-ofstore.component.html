@@ -1,0 +1,75 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <div class="sort_filter_wrap">
+        <div class="heading_divwr">
+          <div class="screen_heading">
+            <h3>Login on boarding website</h3>
+          </div>
+          <div>
+            <div class="btnflex">
+              <a [routerLink]="'/onboarding/add'" class="whitebtns_style"><i aria-hidden="true"
+                  class="fa fa-plus-circle"></i> Add Onboarding</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div id="wrapper">
+      <div class="contant_wrap">
+        <!-- Onborading Managementn Start Here  -->
+        <div class="row" [formGroup]='myForm'>
+          <div class="col-lg-9">
+            <div class="subheading_div">
+              <h4>Kind of store</h4>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="kind_ofstorewr">
+                  <!--repeat div start here-->
+                  <div class="kindofstinner" formArrayName="items"
+                    *ngFor="let item of myForm.get('items')['controls']; let i = index;">
+                    <div class="kindoftxt" [formGroupName]="i">
+                      {{myForm.get('items').value[i]?.name|titlecase}}
+                    </div>
+                    <div class="kindofaction">
+                      <i class="fa fa-pencil" aria-hidden="true"></i>
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                  <!--repeat div end here-->
+                </div>
+              </div>
+            </div>
+            <div class="marbt addmorediv">
+              <div class="row">
+                <div class="col-sm-7">
+                  <div class="form-group">
+                    <label>Add</label>
+                    <div class="addmorewr">
+                      <div class="addinput">
+                        <input type="text" formControlName='name'  placeholder="Enter here">
+                      </div>
+                      <div class="addbtn" (click)="addItem(myForm.value)">
+                        Add
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <a href="javascript:void(0)" (click)="submit(myForm.value.items)" class="btns_style publishbtn">Publish</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <onboarding-sidebar></onboarding-sidebar>
+          </div>
+        </div>
+        <!--Onborading Management End Here  -->
+      </div>
+    </div>
+  </div>
+</div>

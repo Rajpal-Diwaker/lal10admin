@@ -1,0 +1,31 @@
+select {
+  min-width: 150px;
+  border: 1px solid #000;
+  margin-left: 20px;
+}
+select:active, .select select:focus,.select select:hover{
+  border-color:#000;
+}
+.table tbody tr:hover {
+  background-color: #add8e62e;
+}
+
+.table tbody tr:focus {
+  background-color: #add8e687;
+  outline: 0;
+}
+
+.back {
+  background-color: #add8e687;
+  outline: 2px dotted black
+}
+.kycLink {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
+::ng-deep .ng-select.ng-select-single .ng-select-container {
+  width: 200px !important;
+  border: 1px solid black !important;
+  margin: 0px 10px 0px 10px !important;
+}

@@ -1,0 +1,89 @@
+<app-sidebar></app-sidebar>
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <div class="animated fadeIn" [formGroup]="myForm">
+      <div>
+        <div>
+          <div class="enquary_heading_title">
+            <h3>Gallery</h3>
+            <span >Enquiry ID : <span>{{f.EnqId.value}}</span></span>
+          </div>
+        </div>
+        <div class="commom_form_input">
+          <div class="row input_form_wrap">
+            <div class="col-md-12">
+              <div class="field">
+                <div id="education_fields clearfix">
+                  <div class="project_photo" formArrayName="images"
+                    *ngFor="let item of myForm.get('images')?.controls; let i = index;">
+                    <ng-container [formGroupName]="i">
+                      <label class=newbtn>
+                        <ng-container *ngIf="imageSrc[i]; else elseTemplate">
+                          <img id="blah" src="{{ imageSrc[i]? imageSrc[i]: 'assets/images/camera_images.png' }}"
+                            onError="">
+                          <!-- <i class="fa fa-trash" aria-hidden="true"></i> -->
+                        </ng-container>
+                        <ng-template #elseTemplate>
+                          <img id="blah" src="assets/images/camera_images.png" onError="">
+                        </ng-template>
+                        <input id="pic" (change)=changeImage(item) formControlName="image" class='pis'
+                          (change)="readURL($event, i)" accept="image/*" type="file">
+                      </label>
+                    </ng-container>
+                  </div>
+                </div>
+                <div class="addmore_btn" hidden>
+                  <button class="whitebtns_style" type="button">
+                    <i class="fa fa-plus" aria-hidden="true"></i> Add Image</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Price :</label>
+                <input appTwoDigitDecimaNumber class="form-control" formControlName="price" placeholder="price" type="name" readonly>
+                <div *ngIf=" f.price.errors && f.price.touched " class="invalid">
+                  <div *ngIf="f.price.errors.required">
+                    <p style="color: red;">Required</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group field">
+                <label>Comment :</label>
+                <input (change)="changeFlag=true" class="form-control" formControlName="comments" placeholder="comments" type="name">
+                <div *ngIf="f.comments.errors && f.comments.touched  " class="invalid">
+                  <div *ngIf="f.comments.errors.required">
+                    <p style="color: red;">Required</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group field">
+                <label>Update Status</label>
+                <div class="control  has-icons-right">
+                  <div class="select">
+                    <select class="form-control" formControlName="update_status" disabled>
+                      <option value="">Select update_status</option>
+                      <option value="1">Admin</option>
+                      <option value="2">Artisan</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <button (click)="submit(myForm.value)">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

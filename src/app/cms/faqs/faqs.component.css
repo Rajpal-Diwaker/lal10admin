@@ -1,0 +1,19 @@
+table{
+    border-collapse: separate;
+    border-spacing: 0px 10px;
+    background: transparent;
+}
+table tr{
+    background: #fff;
+}
+table td{
+    border:0;
+    vertical-align: middle;
+}
+h3.hwswitch{
+    display: flex;
+    align-items: center;
+}
+h3.hwswitch .checkboxdiv{
+    margin-left: 10px;
+}

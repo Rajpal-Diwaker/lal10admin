@@ -1,0 +1,27 @@
+<app-sidebar></app-sidebar>
+
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+  <div class="content">
+    <div class="tile is-ancestor">
+      <div class="tile is-parent" *ngFor="let item of stats">
+        <article class="tile is-child box">
+          <h5 class="title is-6">{{ item.title | titlecase }}</h5>
+          <h5 class="subtitle is-5">{{ item.stat }}</h5> 
+        </article>
+      </div> 
+    </div>
+    <div class="tile is-ancestor">
+      <div class="tile is-parent grap_wrap">
+        <canvas baseChart 
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="barChartLegend"
+        [chartType]="barChartType">
+      </canvas>
+      </div>
+    </div>
+  </div>
+</div>

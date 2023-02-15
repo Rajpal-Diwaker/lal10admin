@@ -1,0 +1,82 @@
+<app-sidebar></app-sidebar>
+
+<div id="right-panel" class="right-panel">
+  <app-header></app-header>
+
+  <div class="content">
+    <form [formGroup]="newsfeedGrp" (ngSubmit)="submit()">
+    <h3 class="title">{{!editFlag?'Web Newsfeed':'Edit Web Newsfeed'}}</h3> 
+    <div class="row">
+        <div class="col-md-6">
+    <div class="file is-boxed">
+      <label class="file-label">
+        <input class="file-input"  accept="image/*" (change)="fileUpload($event, 'image')" type="file" name="resume">
+        <span class="file-cta">
+          <span class="file-icon">
+            <i class="fa fa-upload"></i>
+          </span>
+          <span class="file-label">
+            Attach Image
+          </span>
+        </span>
+      </label>
+      <figure *ngIf="previewObj['image']" class="image is-128x128">
+        <img (click)="showImage(previewObj['image'])" src="{{previewObj['image']}}">
+      </figure>
+    </div>
+    <div class="input_form_wrap">
+    <div class="field">
+      <label class="label">Title</label>
+      <div class="control">
+        <input class="input" type="text" placeholder="Title" formControlName="title">
+        <div *ngIf="f.title.errors && f.title.touched" class="invalid">
+          <div *ngIf="f.title.errors.required">
+            <p style="color: red;">Title is required</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Description</label>
+      <div class="control has-icons-left has-icons-right">
+        <input class="input " type="text" placeholder="Description" value="" formControlName="description">
+       
+      </div>
+      <div *ngIf="f.description.errors && f.description.touched" class="invalid">
+        <div *ngIf="f.description.errors.required">
+          <p style="color: red;">Description is required</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Add URL</label>
+      <div class="control has-icons-left has-icons-right">
+        <input class="input" type="text" placeholder="Url" value="" formControlName="url">
+       
+      </div>
+      <div *ngIf="f.url.errors && f.url.touched" class="invalid">
+        <div *ngIf="f.url.errors.required">
+          <p style="color: red;">Url is required</p>
+        </div>
+        <div *ngIf="f.url.errors.pattern">
+          <p style="color: red;">Not a valid url</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-grouped">
+      <div class="control">
+        <button type="submit" class="button is-link">Submit</button>
+      </div>
+      <div class="control">
+        <button class="button is-link is-light" [routerLink]="'/newsfeed/appFeedsList'">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+  </form>
+  </div>
+</div>

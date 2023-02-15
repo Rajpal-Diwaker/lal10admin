@@ -1,0 +1,44 @@
+select {
+    min-width: 150px;
+    border: 1px solid #000;
+    margin-left: 20px;
+}
+select:active, .select select:focus,.select select:hover{
+  border-color:#000;
+}
+.chat_tem_wrap .notification_count {
+  display: block;
+    width: 22px;
+    height: 22px;
+    border-radius: 100%;
+    background-color: yellow;
+    color: #000;
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    z-index: 2;
+    font-size: 12px;
+    line-height: 22px;
+    text-align: center;
+}
+.table tbody tr:hover {
+  background-color: #add8e62e;
+}
+
+.table tbody tr:focus {
+  background-color: #add8e687;
+  outline: 0;
+}
+
+.back {
+  background-color: #add8e687;
+  outline: 2px dotted black
+}
+.infoIcon {
+  margin-left: 10px;
+}
+.infoIcon i{
+  font-size: 20px;
+  color: #fff;
+  cursor: pointer;
+}

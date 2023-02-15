@@ -1,0 +1,17 @@
+.menu-list a {
+    padding:15px 10px;
+    border-bottom: 1px solid #000;
+}
+.menu-list a:hover{
+    background-color: #d77574;
+    color: #fff;
+    font-weight: bold;
+}
+.menu-list a.is-active{
+    background-color: #d77574;
+    color: #fff;
+    font-weight: bold;
+}
+.menu-list a:last-of-type{
+    border-bottom:0;
+}

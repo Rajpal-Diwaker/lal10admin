@@ -1,0 +1,52 @@
+<div id="wrapper" class="wrapper">
+  <!--------------- login_page start---------------->
+  <div class="log_section">
+    <div class="row login">
+      <div class="col-xs-12 col-sm-12 col-md-6 right_section">
+        <div class="right_content">
+          <img src="assets/images/logo.png">
+          <div class="overlay">
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 left_section">
+        <div class="flex-container">
+          <div class="right_form">
+            <form [formGroup]="loginFrmGrp" (ngSubmit)="login()">
+              <h2>Welcome to Lal10</h2>
+              <div class="input-information">
+
+                <div class="form-group">
+                  <input type="email" class="form-control" formControlName="email" placeholder="E-mail" name="email"
+                    id="email" autocomplete="off">
+
+                  <div *ngIf="f.email.errors && submitted" class="invalid">
+
+                    <div *ngIf="f.email.errors.required">
+                      <p style="color: red;">Email is required</p>
+                    </div>
+                    <div *ngIf="f.email.errors.email">
+                      <p style="color: red;">Invalid email</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <input type="password" class="form-control" formControlName="password" placeholder="Password"
+                    name="password" id="password" autocomplete="off">
+                  <div *ngIf="f.password.errors &&submitted" class="invalid">
+                    <div *ngIf="f.password.errors.required">
+                      <p style="color: red;">Password is required</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="sbmt" type="submit">{{loader? 'Logging...' : 'LOGIN'}}</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!---------------login page ends-------------------------------->
+</div>
